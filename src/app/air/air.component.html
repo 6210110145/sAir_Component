@@ -1,0 +1,113 @@
+<h3>air works!</h3>
+
+<div class="col-12" style="padding: 0px; margin-bottom: 20px;">
+    <div class="col-xxxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" style="display: inline-block; margin-bottom: 0.30rem;">
+        <nb-accordion>
+            <nb-accordion-item>
+                <nb-accordion-item-header style="padding-top: 0; padding-bottom: 0; pointer-events: auto;"
+                class="col-lg-12 col-md-12 col-m-12 col-12">
+                    <div class="row" style="display:inline-flex; width: 100%; padding: 0.1rem 0.5rem 0.1rem 1rem;">
+                        <!-- Start Name Room & AIR -->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0;">
+                            <p style="font-size: 1rem;font-weight: 300; margin-top: 0.5rem; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                            (click)="$event.stopPropagation()"
+                            (dblclick)="edit_toggle(dialog, 'room')">
+                                RooM: {{nameRoom}}    ({{nameAir}} Air)
+                            </p>   
+                        </div>
+                        <!-- End Name Room & AIR -->
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+                        style="justify-content: center; padding-left: 0px; margin-bottom: 0.2rem; display:inline-flex;">
+                            <!-- Start Power ON/OFF -->
+                            <div class="col-2" style="text-align:center; align-items:center;">
+                                <swal #toggleOff
+                                    html='Do you want to turn <strong>{{ "OFF" }}</strong> ?'
+                                    icon="warning" [showCancelButton]="true" [focusCancel]="true"
+                                    confirmButtonColor="#00d68f" cancelButtonColor="#ff3d71" confirmButtonText="YES"
+                                    cancelButtonText="NO"  (confirm)="turnOnOff('OFF') ">
+                                </swal>
+                                <swal #toggleOn
+                                    html='Do you want to turn <strong>{{ "ON" }}</strong> ?'
+                                    icon="warning" [showCancelButton]="true" [focusCancel]="true"
+                                    confirmButtonColor="#00d68f" cancelButtonColor="#ff3d71" confirmButtonText="YES"
+                                    cancelButtonText="NO"  (confirm)="turnOnOff('ON') ">
+                                </swal>
+
+                                <div>
+                                    <nb-icon *ngIf="InputPower === 'OFF'"
+                                        style="cursor: pointer;" status="danger" class="icon-power"
+                                        icon="power-outline" nbPopover="Power off" nbPopoverTrigger="hint"
+                                        [swal]="toggleOn">
+                                    </nb-icon>
+                                    <nb-icon *ngIf="InputPower === 'ON'"
+                                        style="cursor: pointer;" status="success" class="icon-power"
+                                        icon="power-outline" nbPopover="Power on" nbPopoverTrigger="hint"
+                                        [swal]="toggleOff">
+                                    </nb-icon>
+                                    <label></label>
+                                </div>
+                            </div>
+                            <!-- End Power ON/OFF -->
+
+                            <!-- Start System Icon -->
+                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                                <img nbPopover="System is working." nbPopoverTrigger="hint"
+                                src="../../assets/images/System_icon_green-01.svg" alt="System"
+                                class="img-status">
+                                <div><label></label></div>
+                            </div>
+                            <!-- End System Icon -->
+                        </div>
+                    </div>
+                </nb-accordion-item-header>
+
+
+                <nb-accordion-item-body>
+                    <div class="col-12">
+                        <div *ngIf=" this.keys != undefined || this.keys == undefined">
+                            <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"> 
+                                <input type="text" name="" id=""nbInput fullWidth fieldSize="giant" [(ngModel)]="InputPower" placeholder="Temp">
+                            </div> <br>
+
+                            <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"> 
+                                <input type="text" name="" id="" nbInput fullWidth fieldSize="giant" [(ngModel)]="InputTemp">
+                            </div> <br>
+
+                            <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"> 
+                                <input type="text" name="" id="" nbInput fullWidth fieldSize="giant" [(ngModel)]="InputFan">
+                            </div>
+                        </div>
+                        
+                        <br>
+                        <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                            <button nbButton status="basic" (click)="changeTemp()">Send</button>
+                        </div><br>
+                        <div *ngIf="InputTemp > 15 && InputTemp < 31; else elseBlock" style="color:rgb(0, 255, 38);"> Temp Correct</div>
+                        <ng-template #elseBlock > 
+                            <div style="color:rgb(255, 0, 0);">
+                                **Temp Wrong
+                            </div>
+                        </ng-template>
+                    </div>   
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+        </nb-accordion>
+    </div> 
+</div>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card style="max-width: 70rem;">
+        <nb-card-header class="text-wrap">Change RooM</nb-card-header>
+        <nb-card-body>
+            <input type="text" class="text-wrap" nbInput fullWidth shape="semi-round" placeholder="New Room name" maxlength="200"
+            [(ngModel)]="newNameRoom" (keyup.enter)="ref.close()">
+        </nb-card-body>
+        <nb-card-footer class="padding-template">
+            <button class="confirm-button" nbButton size="medium" status="success" (click)="confirmRoomName()"
+                (click)="ref.close()">Save</button>
+            <button class="close-button" nbButton size="medium" status="danger" style="float:right;"
+                (click)="ref.close()">Cancel</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
