@@ -1,6 +1,7 @@
 <h3>air works!</h3>
 
 <div class="col-12" style="padding: 0px; margin-bottom: 20px;">
+    <div class="row"> 
     <div class="col-xxxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" style="display: inline-block; margin-bottom: 0.30rem;">
         <nb-accordion>
             <nb-accordion-item>
@@ -95,7 +96,7 @@
                                 nbPopover="Temp Room" nbPopoverTrigger="hint"
                                 class="img-status">
                                 <div>
-                                    <label></label>
+                                    <label style="font-size: 14px;"> 31°C </label>
                                 </div>
                             </div>
 
@@ -140,9 +141,10 @@
                         </div>
                         <!-- End Mini Menu -->
 
-                        <!-- Start Control Temperature -->
+                        
                         <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="row">
+                                <!-- Start Temperature Control -->
                                 <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                                     <div style="text-align:left; align-items:center; justify-content:left; margin-bottom: 0.3rem;">
                                         <!-- Power ON -->
@@ -191,6 +193,40 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- End Temperature Control -->
+
+                                <!-- Start Channel -->
+                                <div class="col-xxxl-7 col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">
+                                    <table role="table" fullWidth style="margin-left: 1.5rem; margin-bottom: 0.5rem; margin-top: 0.5rem;">
+                                        <tbody role="rowgroup">
+                                            <tr role="row" class="o-top">
+                                                <td role="cell">
+                                                    <div style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <strong
+                                                        (click)="$event.stopPropagation()"
+                                                        (dblclick)="edit_toggle(channelRef, 'channel')"
+                                                        style="cursor: pointer;">
+                                                            Channel {{channel}}
+                                                        </strong>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr role="row" class="o-top">
+                                                <td role="cell">
+                                                    <div style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p
+                                                        (click)="$event.stopPropagation()"
+                                                        (dblclick)="edit_toggle(descriptionRef, 'description')"
+                                                        style="opacity: 0.6; cursor: pointer;">
+                                                            {{description}}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- End Channel -->
                             </div>
                         </div>
                     </div>
@@ -208,6 +244,7 @@
                 </nb-accordion-item-body>
             </nb-accordion-item>
         </nb-accordion>
+    </div>
     </div> 
 </div>
 
@@ -219,8 +256,41 @@
             [(ngModel)]="newNameRoom" (keyup.enter)="ref.close()">
         </nb-card-body>
         <nb-card-footer class="padding-template">
-            <button class="confirm-button" nbButton size="medium" status="success" (click)="confirmRoomName()"
+            <button class="confirm-button" nbButton size="medium" status="success" (click)="changeRoomName()"
                 (click)="ref.close()">Save</button>
+            <button class="close-button" nbButton size="medium" status="danger" style="float:right;"
+                (click)="ref.close()">Cancel</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<ng-template #channelRef let-data let-ref="dialogRef">
+    <nb-card style="max-width: 70rem;">
+        <nb-card-header class="text-wrap">Change Channel</nb-card-header>
+        <nb-card-body>
+            <input type="text" class="text-wrap" nbInput fullWidth shape="semi-round" placeholder="New Channel" maxlength="200"
+            [(ngModel)]="newChannel" (keyup.enter)="ref.close()">
+        </nb-card-body>
+        <nb-card-footer class="padding-template">
+            <button class="confirm-button" nbButton size="medium" status="success" (click)="changeChannel()"
+                (click)="ref.close()">Save</button>
+            <button class="close-button" nbButton size="medium" status="danger" style="float:right;"
+                (click)="ref.close()">Cancel</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<ng-template #descriptionRef let-data let-ref="dialogRef">
+    <nb-card style="width: 22.5rem;">
+        <nb-card-header class="text-wrap">{{ data }}</nb-card-header>
+        <nb-card-body>
+            <textarea #textarea cols="35" rows="4" class="text-wrap" shape="semi-round" 
+            nbInput type="text" fullWidth maxlength="250"
+            placeholder="Description" [(ngModel)]="newDescription"(keyup.enter)="ref.close()"></textarea>
+        </nb-card-body>
+        <nb-card-footer class="padding-template">
+            <button class="confirm-button" nbButton size="medium" status="success"
+                (click)="changeDescription()" (click)="ref.close()">Save</button>
             <button class="close-button" nbButton size="medium" status="danger" style="float:right;"
                 (click)="ref.close()">Cancel</button>
         </nb-card-footer>

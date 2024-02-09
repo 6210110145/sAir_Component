@@ -17,6 +17,10 @@ export class AirComponent implements OnInit {
   InputFan: any;
   InputPower: any;
   dialog: any;
+  channel: number | undefined;
+  newChannel:any;
+  description: any
+  newDescription: any
   
   constructor(
     private http: HttpClient,
@@ -25,10 +29,11 @@ export class AirComponent implements OnInit {
     
     // <-- Show Data from Server --> //
     this.http.get(ServerPort.apiUrlNodeAir2 + '/remote')
-    // this.http.get('http://192.168.0.151:3001/remote')
       .subscribe((data: any) => {
         this.keys = data.keys
         this.nameRoom = data.keys.Room
+        this.channel = data.keys.Channel
+        this.description = data.keys.Description
         this.nameAir = data.keys.Name
         this.InputPower = data.keys.Power
         this.InputTemp = data.keys.Temp
@@ -38,17 +43,28 @@ export class AirComponent implements OnInit {
       }, err => {
         console.log(err)
       })
+    // <-- Show Data from Server --> //
   }
-  // <-- Show Data from Server --> //
 
-  // <-- Change the Name Room --> //
+  ngOnInit(): void {
+    // default value
+  }
+
+  // <-- Change the dialog --> //
   edit_toggle(dialog: TemplateRef<any>, type: string) {
     if (type == 'room') {
       this.dialogService.open(dialog, { context: 'Edit name of ' + this.nameRoom })
     }
+    if(type == 'channel') {
+      this.dialogService.open(dialog, { context: 'Edit channel of ' + this.channel })
+    }
+    if(type == 'description') {
+      this.dialogService.open(dialog, { context: 'Edit description of ' + this.description })
+    }
   }
 
-  confirmRoomName() {
+  // <-- Change the Name Room --> //
+  changeRoomName() {
     let room = {
       Room: this.newNameRoom
     }
@@ -56,14 +72,45 @@ export class AirComponent implements OnInit {
     this.nameRoom = this.newNameRoom
 
     this.http.post(ServerPort.apiUrlNodeAir2 + '/room', room)
-      .subscribe(data => {
-        console.log(data)
-      }, err => {
-        console.log(err)
-      })
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
   }
-  // <-- Change the Name Room --> //
 
+  // <-- Change the Channel --> //
+  changeChannel() {
+    let channelObj = {
+      Channel: this.newChannel
+    }
+
+    this.channel = this.newChannel
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/channel', channelObj)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+  }
+
+  // <-- Change the Description --> //
+  changeDescription() {
+    let descriptionObj = {
+      Description: this.newDescription
+    }
+
+    this.description = this.newDescription
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/description', descriptionObj)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+  }
+  
   // <-- Change the Power ON/OFF --> //
   turnOnOff(newPower: string) {
     let power = {
@@ -162,7 +209,7 @@ export class AirComponent implements OnInit {
       }, 300);
     }else {
       setTimeout(() => {
-        this.toastrService.show("Temperatute must be < 31 °C", "Remote Fail", 
+        this.toastrService.show("The Temperatute must be < 31 °C", "Remote Fail", 
         {
           status: "warning",
           duration: 3000
@@ -198,7 +245,7 @@ export class AirComponent implements OnInit {
       }, 300);
     }else {
       setTimeout(() => {
-        this.toastrService.show("Temperatute must be > 15 °C", "Remote Fail", 
+        this.toastrService.show("The Temperatute must be > 15 °C", "Remote Fail", 
         {
           status: "warning",
           duration: 3000
@@ -232,9 +279,7 @@ export class AirComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
-
+  // Check blank space
   isNotNullOrWhitespace(str: string): boolean {
     return str?.trim().length > 0 ;
   }
