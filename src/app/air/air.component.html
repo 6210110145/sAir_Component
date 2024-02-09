@@ -108,8 +108,38 @@
                     </div>
                 </nb-accordion-item-header>
 
-
                 <nb-accordion-item-body>
+                    <div class="row">
+                        <!-- Start Mini Menu -->
+                        <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="row" style="float: right; margin-left: 0.6rem; margin-right: 0.2rem;">
+                                <nb-icon
+                                    *ngIf="InputPower === 'ON'"
+                                    nbPopover="Click to lock outlet." nbPopoverTrigger="hint"
+                                    nbPopoverPlacement="top" icon="lock" status="success"
+                                    style="cursor: pointer; margin-right: 0.5rem;"
+                                    (click)="$event.stopPropagation()">
+                                </nb-icon>&nbsp;
+                                <nb-icon
+                                    *ngIf="InputPower === 'OFF'"
+                                    nbPopover="Click to unlock outlet." nbPopoverTrigger="hint"
+                                    nbPopoverPlacement="top" icon="unlock" status="danger"
+                                    style="cursor: pointer; margin-right: 0.5rem;"
+                                    (click)="$event.stopPropagation()">
+                                </nb-icon>
+
+                                <div class="status-1">
+                                    <a>
+                                        <nb-icon style="cursor: pointer; margin-right: 0.5rem;" icon="activity-outline"
+                                            nbPopover="Click to show this outlet chart." nbPopoverTrigger="hint"
+                                            nbPopoverPlacement="top">
+                                        </nb-icon>
+                                    </a>
+                                </div>&nbsp;
+                            </div>
+                        </div>
+                        <!-- End Mini Menu -->
+                    </div>
                     <div class="col-12">
                         <div *ngIf=" this.keys != undefined || this.keys == undefined">
                             <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"> 
