@@ -65,9 +65,45 @@
                                 src="../../assets/images/WiFi_icon_green.svg" alt="Ethernet"
                                 class="img-status" style="margin: left 0.1em;">
                                 <div><label></label></div>
-                          </div>
-                          <!-- End Wifi Icon -->
+                            </div>
+                            <!-- End Wifi Icon -->
 
+                            <!-- Start Smoke Model -->
+                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                                <img nbPopover="Smoke detect is disconnected." nbPopoverTrigger="hint"
+                                src="../../assets/images/smoke-detect-disable.png" alt="Smoke detect"
+                                class="img-status" style="margin: left 0.1em;">
+                                <div>
+                                    <label></label>
+                                </div>
+                            </div>
+                            <!-- End Smoke Model -->
+
+                            <!-- Temp Air -->
+                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                                <img src="../../assets/images/air-conditioner-on.png"
+                                nbPopover="Current temperature" nbPopoverTrigger="hint"
+                                class="img-status">
+                                <div>
+                                    <label style="font-size: 14px;">{{InputTemp}}°C</label>
+                                </div>
+                            </div>
+
+                            <!-- Temp Room -->
+                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                                <img src="../../assets/images/air-conditioner-off.png"
+                                nbPopover="Temp Room" nbPopoverTrigger="hint"
+                                class="img-status">
+                                <div>
+                                    <label></label>
+                                </div>
+                            </div>
+
+                            <!-- Start Perset -->
+                            <div>
+
+                            </div>
+                            <!-- End Perset -->
                         </div>
                     </div>
                 </nb-accordion-item-header>
