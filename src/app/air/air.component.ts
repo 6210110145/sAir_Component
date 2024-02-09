@@ -1,7 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { NbDialogService } from '@nebular/theme';
-import { Router } from '@angular/router';
+import { NbComponentStatus, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ServerPort } from 'src/server/serverapi';
 
 @Component({
@@ -22,7 +21,7 @@ export class AirComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private dialogService: NbDialogService,
-    private router: Router) {
+    private toastrService: NbToastrService) {
     
     // <-- Show Data from Server --> //
     this.http.get(ServerPort.apiUrlNodeAir2 + '/remote')
@@ -74,7 +73,6 @@ export class AirComponent implements OnInit {
     this.InputPower = newPower
 
     this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', power)
-    // this.http.post('http://192.168.0.151:3001/remote', newKey)
       .subscribe(data => {
         console.log(data)
       }, err => {
@@ -82,6 +80,133 @@ export class AirComponent implements OnInit {
       })
   }
   // <-- Change the Power ON/OFF --> //
+
+  // <-- Change the Temerature --> //
+  send_temp() {
+    let newTemp = this.InputTemp
+
+    console.log(newTemp + typeof(newTemp))
+
+    if(newTemp !== '' && this.isNotNullOrWhitespace(newTemp)) {
+      if(parseInt(newTemp) >= 16 && parseInt(newTemp) <=30) {
+        let temp = {
+          Temp: newTemp
+        }
+
+        this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', temp)
+        .subscribe(data => {
+          console.log(data)
+        }, err => {
+          console.log(err)
+        })
+
+        setTimeout(() => {
+          this.toastrService.show("complete", "Remote Successfully", 
+          {
+            status: "success",
+            duration: 3000
+          });
+        }, 300);
+      }else if(parseInt(newTemp) < 16) {
+        setTimeout(() => {
+          this.toastrService.show("Temperatute must be > 15 °C", "Remote Fail", 
+          {
+            status: "warning",
+            duration: 3000
+          });
+        }, 300);
+      }else if(parseInt(newTemp) > 30) {
+        setTimeout(() => {
+          this.toastrService.show("Temperatute must be < 31 °C", "Remote Fail", 
+          {
+            status: "warning",
+            duration: 3000
+          });
+        }, 300);
+      }
+    }else {
+      setTimeout(() => {
+        this.toastrService.show("You must input value", "Fail", 
+        {
+          status: "danger",
+          duration: 3000
+        });
+      }, 300);
+    }
+  }
+
+  inc_temp() {
+    let newTemp = this.InputTemp
+    newTemp = parseInt(newTemp) + 1
+
+    this.InputTemp = newTemp
+
+    if(newTemp <= 30) {
+      let temp = {
+        Temp: newTemp
+      }
+
+      this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', temp)
+      .subscribe(data => {
+        console.log(data)
+      }, err => {
+        console.log(err)
+      })
+
+      setTimeout(() => {
+        this.toastrService.show("complete", "Remote Successfully", 
+        {
+          status: "success",
+          duration: 3000
+        });
+      }, 300);
+    }else {
+      setTimeout(() => {
+        this.toastrService.show("Temperatute must be < 31 °C", "Remote Fail", 
+        {
+          status: "warning",
+          duration: 3000
+        });
+      }, 300);
+    }
+  }
+
+  dec_temp() {
+    let newTemp = this.InputTemp
+    newTemp = parseInt(newTemp) - 1
+    
+    this.InputTemp = newTemp
+
+    if(newTemp >= 16) {
+      let temp = {
+        Temp: newTemp
+      }
+
+      this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', temp)
+      .subscribe(data => {
+        console.log(data)
+      }, err => {
+        console.log(err)
+      })
+
+      setTimeout(() => {
+        this.toastrService.show("complete", "Remote Successfully", 
+        {
+          status: "success",
+          duration: 3000
+        });
+      }, 300);
+    }else {
+      setTimeout(() => {
+        this.toastrService.show("Temperatute must be > 15 °C", "Remote Fail", 
+        {
+          status: "warning",
+          duration: 3000
+        });
+      }, 300);
+    }
+  }
+  // <-- Change the Temerature --> //
 
   changeTemp() {
     let newKey = {
@@ -108,7 +233,10 @@ export class AirComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
 
+  isNotNullOrWhitespace(str: string): boolean {
+    return str?.trim().length > 0 ;
   }
 
 }

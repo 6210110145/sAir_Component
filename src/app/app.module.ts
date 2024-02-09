@@ -16,7 +16,8 @@ import {
   NbMenuModule,
   NbDialogModule,
   NbIconModule,
-  NbPopoverModule} from '@nebular/theme';
+  NbPopoverModule,
+  NbToastrModule} from '@nebular/theme';
 import { AirComponent } from './air/air.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -44,6 +45,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     NbInputModule,
     NbCardModule,
     NbDialogModule.forRoot(),
+    NbToastrModule.forRoot(),
     NbEvaIconsModule,
     NbIconModule,
     NbPopoverModule,

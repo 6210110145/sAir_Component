@@ -139,23 +139,62 @@
                             </div>
                         </div>
                         <!-- End Mini Menu -->
-                    </div>
-                    <div class="col-12">
-                        <div *ngIf=" this.keys != undefined || this.keys == undefined">
-                            <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"> 
-                                <input type="text" name="" id=""nbInput fullWidth fieldSize="giant" [(ngModel)]="InputPower" placeholder="Temp">
-                            </div> <br>
 
-                            <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"> 
-                                <input type="text" name="" id="" nbInput fullWidth fieldSize="giant" [(ngModel)]="InputTemp">
-                            </div> <br>
-
-                            <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"> 
-                                <input type="text" name="" id="" nbInput fullWidth fieldSize="giant" [(ngModel)]="InputFan">
+                        <!-- Start Control Temperature -->
+                        <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="row">
+                                <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                                    <div style="text-align:left; align-items:center; justify-content:left; margin-bottom: 0.3rem;">
+                                        <!-- Power ON -->
+                                        <input *ngIf="InputPower === 'ON'"
+                                        type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" 
+                                        class="input text-center" style="font-size: 35px;"
+                                        size="2"  nbPopover="Input Temperature" nbPopoverTrigger="hint"
+                                        placeholder="{{InputTemp}}" nbInput shape="semi-round"
+                                        [(ngModel)]="InputTemp" (keyup.enter)="send_temp()" (focusout)="25">
+                                        <!-- Power OFF -->
+                                        <input *ngIf="InputPower === 'OFF'"
+                                        type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" 
+                                        class="input text-center status-1" style="font-size: 35px; cursor: not-allowed;"
+                                        size="2" nbPopover="Input Temperature" nbPopoverTrigger="hint"
+                                        placeholder="{{InputTemp}}" nbInput shape="semi-round"
+                                        [(ngModel)]="InputTemp" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-xxxl-1 col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+                                    <div style="text-align:left; align-items:center; justify-content:left; margin-bottom: 0.3rem;">
+                                        <div>
+                                            <!-- Power ON -->
+                                            <nb-icon *ngIf="InputPower === 'ON'"
+                                            class="temp-icon d-inline-flex" icon="plus-outline" status="success"
+                                            style="width: 2rem; cursor: pointer;" nbPopover="increase temperature" nbPopoverTrigger="hint"
+                                            (click)="inc_temp()">
+                                            </nb-icon>
+                                            <!-- Power OFF -->
+                                            <nb-icon *ngIf="InputPower === 'OFF'"
+                                            class="temp-icon d-inline-flex" icon="plus-outline" status="basic"
+                                            style="width: 2rem; cursor: pointer;" nbPopover="increase temperature" nbPopoverTrigger="hint">
+                                            </nb-icon>
+                                        </div>
+                                        <div>
+                                            <!-- Power ON -->
+                                            <nb-icon *ngIf="InputPower === 'ON'"
+                                            class="temp-icon d-inline-flex" icon="minus-outline" status="success" 
+                                            style="width: 2rem; cursor: pointer;" nbPopover="decrease temperature" nbPopoverTrigger="hint"
+                                            (click)="dec_temp()">
+                                            </nb-icon>
+                                            <!-- Power OFF -->
+                                            <nb-icon *ngIf="InputPower === 'OFF'"
+                                            class="temp-icon d-inline-flex" icon="minus-outline" status="basic" 
+                                            style="width: 2rem; cursor: pointer;" nbPopover="decrease temperature" nbPopoverTrigger="hint">
+                                            </nb-icon>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <br>
+                    </div>
+                    <div class="col-12">
                         <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                             <button nbButton status="basic" (click)="changeTemp()">Send</button>
                         </div><br>
