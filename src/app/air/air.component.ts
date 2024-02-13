@@ -17,6 +17,7 @@ export class AirComponent implements OnInit {
   InputTemp: any;
   InputFan: any;
   InputPower: any;
+  InputMode: any;
   dialog: any;
   channel: number | undefined;
   newChannel:any;
@@ -40,6 +41,7 @@ export class AirComponent implements OnInit {
         this.InputPower = data.keys.Power
         this.InputTemp = data.keys.Temp
         this.InputFan = data.keys.Fan
+        this.InputMode = data.keys.Mode
 
         console.log(data.keys)
       }, err => {
@@ -256,6 +258,50 @@ export class AirComponent implements OnInit {
     }
   }
   // <-- Change the Temerature --> //
+
+  // <-- Change the Fan Speed --> //
+  selectFan(speedFan: any){
+    let newFan:any
+
+    if (parseInt(speedFan) === 0) {
+      this.InputFan = 0
+      newFan = 'AUTO'
+    }else {
+      this.InputFan = newFan
+      newFan = parseInt(speedFan)
+    }
+
+    let fan = {
+      Fan: newFan
+    }
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', fan)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+  }
+  // <-- Change the Fan Speed --> //
+
+  // <-- Change the Mode Air --> //
+  changeMode(modeAir: any) {
+    let newMode = modeAir
+
+    this.InputMode = newMode
+
+    let mode = {
+      Mode: newMode
+    }
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', mode)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+  }
+  // <-- Change the Mode Air --> //
 
   changeTemp() {
     let newKey = {

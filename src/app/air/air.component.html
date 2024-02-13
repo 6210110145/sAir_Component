@@ -246,10 +246,46 @@
                             <!-- Start Level Fan -->
                             <div 
                             class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
+                                <!-- Default Theme -->
                                 <div class="d-inline-flex">
                                     <div *ngFor="let data of smt.fan[0].data; let j = index">
                                         <div class="col">
-                                            <img >
+                                            <img *ngIf="InputPower === 'ON'"
+                                            [style]="data.type == InputFan? 'width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2.3rem; height:2.3rem;'"
+                                            src="{{data.imgsrc}}"
+                                            nbPopover="Fan level {{data.type}} " nbPopoverTrigger="hint"
+                                            (click)="selectFan(data.type)" (click)="$event.stopPropagation()">
+
+                                            <img *ngIf="InputPower === 'OFF'"
+                                            [style]="data.type == InputFan? 'cursor: not-allowed; width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2.3rem; height:2.3rem;'"                                            src="{{data.imgsrc}}" class="status-1"
+                                            nbPopover="Fan level {{data.type}} " nbPopoverTrigger="hint" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dark Theme -->
+                                <div>
+
+                                </div>
+                            </div>
+                            <!-- End Level Fan -->
+
+                            <!-- Start Mode -->
+                            <div 
+                            class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
+                                <!-- Default Theme -->
+                                <div class="d-inline-flex">
+                                    <div *ngFor="let data of smt.src[0].data; let j = index">
+                                        <div class="col" style="padding-left:0.6rem; padding-right: 0.6rem;">
+                                            <img *ngIf="InputPower === 'ON'"
+                                            [style]="data.type == InputMode? 'width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2rem; height:2rem; '"
+                                            src="{{data.imgsrc}}"
+                                            nbPopover="{{data.type}} Mode" nbPopoverTrigger="hint"
+                                            (click)="changeMode(data.type)" (click)="$event.stopPropagation()">
+
+                                            <img *ngIf="InputPower === 'OFF'"
+                                            [style]="data.type == InputMode? 'cursor: not-allowed; width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2rem; height:2rem; '"
+                                            src="{{data.imgsrc}}" class="status-1" nbPopover="{{data.type}} Mode" nbPopoverTrigger="hint">
                                         </div>
                                     </div>
                                 </div>
@@ -257,9 +293,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                            <button nbButton status="basic" (click)="changeTemp()">Send</button>
-                        </div><br>
+                        <br>
                         <div *ngIf="InputTemp > 15 && InputTemp < 31; else elseBlock" style="color:rgb(0, 255, 38);"> Temp Correct</div>
                         <ng-template #elseBlock > 
                             <div style="color:rgb(255, 0, 0);">

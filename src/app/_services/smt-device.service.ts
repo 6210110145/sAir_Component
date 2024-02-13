@@ -23,59 +23,59 @@ export class SmtDeviceService {
   sAir: any = [];
   airDemo: any = [];
 
-//   src = [{
-//     theme: 'default',
-//     data: [
-//       {
-//         type: 'Cold',
-//         imgsrc: '../../../../assets/images/frost.png'
-//       },
-//       {
-//         type: 'Auto',
-//         imgsrc: '../../../../assets/images/automatic.svg'
-//       },
-//       {
-//         type: 'Fan',
-//         imgsrc: '../../../../assets/images/fan.svg'
-//       },
-//       {
-//         type: 'Dry',
-//         imgsrc: '../../../../assets/images/dry.svg'
-//       },
-//       {
-//         type: 'Heat',
-//         imgsrc: '../../../../assets/images/sun.png'
-//       }
-//     ],
-//   }
-//     ,
-//   {
-//     theme: 'dark',
+  src = [{
+    theme: 'default',
+    data: [
+      {
+        type: 'COOL',
+        imgsrc: '../../assets/images/frost.png'
+      },
+      {
+        type: 'AUTO',
+        imgsrc: '../../assets/images/automatic.svg'
+      },
+      {
+        type: 'FAN',
+        imgsrc: '../../assets/images/fan.svg'
+      },
+      {
+        type: 'DRY',
+        imgsrc: '../../assets/images/dry.svg'
+      },
+    //   {
+    //     type: 'Heat',
+    //     imgsrc: '../../../../assets/images/sun.png'
+    //   }
+    ],
+  }
+    ,
+  {
+    theme: 'dark',
 
-//     data: [
-//       {
-//         type: 'Cold',
-//         imgsrc: '../../../../assets/images/frost-w.png'
-//       },
-//       {
-//         type: 'Auto',
-//         imgsrc: '../../../../assets/images/automatic-w.png'
-//       },
-//       {
-//         type: 'Fan',
-//         imgsrc: '../../../../assets/images/fan-w.png'
-//       },
-//       {
-//         type: 'Dry',
-//         imgsrc: '../../../../assets/images/dry-w.png'
-//       },
-//       {
-//         type: 'Heat',
-//         imgsrc: '../../../../assets/images/sun-w.png'
-//       }
-//     ]
-//   }
-//   ]
+    data: [
+      {
+        type: 'COOL',
+        imgsrc: '../../assets/images/frost-w.png'
+      },
+      {
+        type: 'AUTO',
+        imgsrc: '../../assets/images/automatic-w.png'
+      },
+      {
+        type: 'FAN',
+        imgsrc: '../../assets/images/fan-w.png'
+      },
+      {
+        type: 'DRY',
+        imgsrc: '../../assets/images/dry-w.png'
+      },
+    //   {
+    //     type: 'Heat',
+    //     imgsrc: '../../../../assets/images/sun-w.png'
+    //   }
+    ]
+  }
+  ]
 
   fan =[{
     theme: 'default',
@@ -93,7 +93,7 @@ export class SmtDeviceService {
         imgsrc: '../../assets/images/fan-3.png'
       },
       {
-        type: 'Auto',
+        type: '0',
         imgsrc: '../../assets/images/fan-auto.png'
       }
     ],
@@ -115,7 +115,7 @@ export class SmtDeviceService {
         imgsrc: '../../assets/images/fan-3w.png'
       },
       {
-        type: 'Auto',
+        type: '0',
         imgsrc: '../../assets/images/fan-autow.png'
       }
     ],
