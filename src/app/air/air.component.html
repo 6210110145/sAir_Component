@@ -246,7 +246,13 @@
                             <!-- Start Level Fan -->
                             <div 
                             class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
-
+                                <div class="d-inline-flex">
+                                    <div *ngFor="let data of smt.fan[0].data; let j = index">
+                                        <div class="col">
+                                            <img >
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

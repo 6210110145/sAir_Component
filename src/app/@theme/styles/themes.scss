@@ -1,0 +1,127 @@
+// // @nebular theming framework
+// @import '~@nebular/theme/styles/theming';
+// // @nebular out of the box themes
+// @import '~@nebular/theme/styles/themes';
+
+// $nb-themes: nb-register-theme((
+//   layout-padding-top: 2.25rem,
+//    font-family-primary: unquote('Kanit, sans-serif'),
+//    font-family-secondary: font-family-primary,
+//   menu-item-icon-margin: 0 0.5rem 0 0,
+
+//   card-height-tiny: 13.5rem,
+//   card-height-small: 21.1875rem,
+//   card-height-medium: 28.875rem,
+//   card-height-large: 36.5625rem,
+//   card-height-giant: 44.25rem,
+//   card-margin-bottom: 1.875rem,
+//   card-header-with-select-padding-top: 0.5rem,
+//   card-header-with-select-padding-bottom: 0.5rem,
+
+//   text-hint-color: #000,  //Nb icon in Nb action fix
+
+//   select-small-text-font-weight:300,
+//   input-small-text-font-weight: 300,
+//   select-min-width: 4rem,
+//   icon-color: #000,
+
+
+
+//   slide-out-background: #f7f9fc,
+//   slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+//   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+//   sidebar-width: 210px,
+// ), default, default);
+
+// $nb-themes: nb-register-theme((
+//   layout-padding-top: 2.25rem,
+//   font-family-primary: unquote('Kanit, sans-serif'),
+//   font-family-secondary: font-family-primary,
+
+//   menu-item-icon-margin: 0 0.5rem 0 0,
+
+//   card-height-tiny: 13.5rem,
+//   card-height-small: 21.1875rem,
+//   card-height-medium: 28.875rem,
+//   card-height-large: 36.5625rem,
+//   card-height-giant: 44.25rem,
+//   card-margin-bottom: 1.875rem,
+//   card-header-with-select-padding-top: 0.5rem,
+//   card-header-with-select-padding-bottom: 0.5rem,
+
+//   select-min-width: 4rem,
+//   select-small-text-font-weight:300,
+//   input-small-text-font-weight: 300,
+//   icon-color: #fff,
+
+//   color-basic-100: #ffffff,
+//   color-basic-200: #d4d4d4,
+//   color-basic-300: #cfcfcf,
+//   color-basic-400: #ebebeb,
+//   color-basic-500: #d4d4d4,
+//   color-basic-600: #d4d4d4,
+//   color-basic-700: #cccccc,
+//   color-basic-800: #222222,
+//   color-basic-900: #1d1d1d,
+//   color-basic-1000: #080808,
+//   color-basic-1100: #000000,
+
+//   slide-out-background: linear-gradient(270deg, #222b45 0%, #151a30 100%),
+//   slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+//   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+//   shadow: 0 0.2rem 0.5rem 0 #272727,
+//   sidebar-width: 210px,
+// ), cosmic, dark);
+
+// $nb-themes: nb-register-theme((
+//   layout-padding-top: 2.25rem,
+
+//   menu-item-icon-margin: 0 0.5rem 0 0,
+
+//   card-height-tiny: 13.5rem,
+//   card-height-small: 21.1875rem,
+//   card-height-medium: 28.875rem,
+//   card-height-large: 36.5625rem,
+//   card-height-giant: 44.25rem,
+//   card-margin-bottom: 1.875rem,
+//   card-header-with-select-padding-top: 0.5rem,
+//   card-header-with-select-padding-bottom: 0.5rem,
+
+//   select-min-width: 4rem,
+
+//   slide-out-background: linear-gradient(270deg, #edf1f7 0%, #e4e9f2 100%),
+//   slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+//   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+// ), corporate, corporate);
+
+// $nb-themes: nb-register-theme((
+//   layout-padding-top: 2.25rem,
+//   font-family-primary: unquote('Kanit, sans-serif'),
+//   font-family-secondary: font-family-primary,
+
+//   menu-item-icon-margin: 0 0.5rem 0 0,
+
+//   card-height-tiny: 13.5rem,
+//   card-height-small: 21.1875rem,
+//   card-height-medium: 28.875rem,
+//   card-height-large: 36.5625rem,
+//   card-height-giant: 44.25rem,
+//   card-margin-bottom: 1.875rem,
+//   card-header-with-select-padding-top: 0.5rem,
+//   card-header-with-select-padding-bottom: 0.5rem,
+
+//   select-min-width: 4rem,
+//   select-small-text-font-weight:300,
+//   input-small-text-font-weight: 300,
+
+
+//   icon-color: #fff,
+
+//   text-hint-color: #fff,  //Nb icon in Nb action fix
+
+
+//   slide-out-background: linear-gradient(270deg, #222b45 0%, #151a30 100%),
+//   slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
+//   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+//   sidebar-width: 210px,
+// ), dark, dark);

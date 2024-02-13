@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ServerPort } from 'src/server/serverapi';
+import { SmtDeviceService } from '../_services/smt-device.service';
 
 @Component({
   selector: 'app-air',
@@ -25,7 +26,8 @@ export class AirComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private dialogService: NbDialogService,
-    private toastrService: NbToastrService) {
+    private toastrService: NbToastrService,
+    public  smt: SmtDeviceService,) {
     
     // <-- Show Data from Server --> //
     this.http.get(ServerPort.apiUrlNodeAir2 + '/remote')
