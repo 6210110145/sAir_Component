@@ -19,6 +19,10 @@ export class AirComponent implements OnInit {
   InputPower: any;
   InputMode: any;
   InputSwing: any;
+  InputSleep: any;
+  InputTurbo: any;
+  InputQuiet: any;
+  InputLight: any;
   dialog: any;
   channel: number | undefined;
   newChannel:any;
@@ -44,6 +48,10 @@ export class AirComponent implements OnInit {
         this.InputFan = data.keys.Fan
         this.InputMode = data.keys.Mode
         this.InputSwing = data.keys.Swing
+        this.InputSleep = data.keys.Sleep
+        this.InputQuiet = data.keys.Quiet
+        this.InputTurbo = data.keys.Turbo
+        this.InputLight = data.keys.Light
 
         console.log(data.keys)
       }, err => {
@@ -344,6 +352,14 @@ export class AirComponent implements OnInit {
         duration: 3000
       });
     }, 500);
+  }
+
+  changeSleep(modeSleep: any) {
+
+  }
+
+  changeTurbo(modeTurbo: any) {
+
   }
 
   changeTemp() {
