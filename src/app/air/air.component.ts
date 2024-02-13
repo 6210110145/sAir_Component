@@ -18,6 +18,7 @@ export class AirComponent implements OnInit {
   InputFan: any;
   InputPower: any;
   InputMode: any;
+  InputSwing: any;
   dialog: any;
   channel: number | undefined;
   newChannel:any;
@@ -42,6 +43,7 @@ export class AirComponent implements OnInit {
         this.InputTemp = data.keys.Temp
         this.InputFan = data.keys.Fan
         this.InputMode = data.keys.Mode
+        this.InputSwing = data.keys.Swing
 
         console.log(data.keys)
       }, err => {
@@ -263,12 +265,12 @@ export class AirComponent implements OnInit {
   selectFan(speedFan: any){
     let newFan:any
 
-    if (parseInt(speedFan) === 0) {
+    if (speedFan == 0) {
       this.InputFan = 0
       newFan = 'AUTO'
     }else {
       this.InputFan = newFan
-      newFan = parseInt(speedFan)
+      newFan = speedFan
     }
 
     let fan = {
@@ -281,6 +283,14 @@ export class AirComponent implements OnInit {
     }, err => {
       console.log(err)
     })
+
+    setTimeout(() => {
+      this.toastrService.show("Fan complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 500);
   }
   // <-- Change the Fan Speed --> //
 
@@ -300,8 +310,41 @@ export class AirComponent implements OnInit {
     }, err => {
       console.log(err)
     })
+
+    setTimeout(() => {
+      this.toastrService.show("Mode complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 500);
   }
   // <-- Change the Mode Air --> //
+
+  changeSwing(modeSwing: any) {
+    let newSwing = modeSwing
+
+    this.InputSwing = newSwing
+
+    let swing = {
+      Swing: newSwing
+    }
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', swing)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+
+    setTimeout(() => {
+      this.toastrService.show("Swing complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 500);
+  }
 
   changeTemp() {
     let newKey = {

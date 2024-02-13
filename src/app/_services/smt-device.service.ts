@@ -81,19 +81,19 @@ export class SmtDeviceService {
     theme: 'default',
     data: [
       {
-        type: '1',
+        type: 1,
         imgsrc: '../../assets/images/fan-1.png'
       },
       {
-        type: '2',
+        type: 2,
         imgsrc: '../../assets/images/fan-2.png'
       },
       {
-        type: '3',
+        type: 3,
         imgsrc: '../../assets/images/fan-3.png'
       },
       {
-        type: '0',
+        type: 0,
         imgsrc: '../../assets/images/fan-auto.png'
       }
     ],
@@ -103,22 +103,21 @@ export class SmtDeviceService {
     theme: 'dark',
     data: [
       {
-        type: '1',
+        type: 1,
         imgsrc: '../../assets/images/fan-1w.png'
       },
       {
-        type: '2',
+        type: 2,
         imgsrc: '../../assets/images/fan-2w.png'
       },
       {
-        type: '3',
+        type: 3,
         imgsrc: '../../assets/images/fan-3w.png'
       },
       {
-        type: '0',
+        type: 0,
         imgsrc: '../../assets/images/fan-autow.png'
       }
     ],
-  }
-]
+  }]
 }
