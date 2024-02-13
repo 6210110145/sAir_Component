@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { NbComponentStatus, NbDialogService, NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ServerPort } from 'src/server/serverapi';
 
 @Component({
