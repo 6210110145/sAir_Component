@@ -262,14 +262,14 @@ export class AirComponent implements OnInit {
   // <-- Change the Temerature --> //
 
   // <-- Change the Fan Speed --> //
-  selectFan(speedFan: any){
+  selectFan(speedFan: number){
     let newFan:any
 
     if (speedFan == 0) {
       this.InputFan = 0
       newFan = 'AUTO'
     }else {
-      this.InputFan = newFan
+      this.InputFan = speedFan
       newFan = speedFan
     }
 

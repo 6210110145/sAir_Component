@@ -27,7 +27,7 @@
                         style="justify-content: center; padding-left: 0px; margin-bottom: 0.2rem; display:inline-flex;">
                             <!-- Start Power ON/OFF -->
                             <div 
-                            class="col-2" style="text-align:center; align-items:center;">
+                            class="col-1" style="text-align:center; align-items:center; margin-right: 5%;">
                                 <swal #toggleOff
                                     html='Do you want to turn <strong>{{ "OFF" }}</strong> ?'
                                     icon="warning" [showCancelButton]="true" [focusCancel]="true"
@@ -59,7 +59,7 @@
                             <!-- End Power ON/OFF -->
 
                             <!-- Start System Icon -->
-                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img nbPopover="System is working." nbPopoverTrigger="hint"
                                 src="../../assets/images/System_icon_green-01.svg" alt="System"
                                 class="img-status">
@@ -68,7 +68,7 @@
                             <!-- End System Icon -->
 
                             <!-- Start Wifi Icon -->
-                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img nbPopover="Ethernet is connected." nbPopoverTrigger="hint"
                                 src="../../assets/images/WiFi_icon_green.svg" alt="Ethernet"
                                 class="img-status" style="margin: left 0.1em;">
@@ -77,7 +77,7 @@
                             <!-- End Wifi Icon -->
 
                             <!-- Start Smoke Model -->
-                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img nbPopover="Smoke detect is disconnected." nbPopoverTrigger="hint"
                                 src="../../assets/images/smoke-detect-disable.png" alt="Smoke detect"
                                 class="img-status" style="margin: left 0.1em;">
@@ -88,7 +88,7 @@
                             <!-- End Smoke Model -->
 
                             <!-- Temp Air -->
-                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img src="../../assets/images/air-conditioner-on.png"
                                 nbPopover="Current temperature" nbPopoverTrigger="hint"
                                 class="img-status">
@@ -98,8 +98,8 @@
                             </div>
 
                             <!-- Temp Room -->
-                            <div class="col-2" style="text-align:end; align-items:end; margin-right: 0;">
-                                <img src="../../assets/images/air-conditioner-off.png"
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                <img src="../../assets/images/Device temp2-01.svg"
                                 nbPopover="Temp Room" nbPopoverTrigger="hint"
                                 class="img-status">
                                 <div>
@@ -107,9 +107,26 @@
                                 </div>
                             </div>
 
-                            <!-- Start Perset -->
-                            <div>
+                            <!-- Humid Room -->
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                <img src="../../assets/images/Humidity4.svg"
+                                nbPopover="Humid Room" nbPopoverTrigger="hint"
+                                class="img-status">
+                                <div>
+                                    <label style="font-size: 14px; align-items:center"> 23% </label>
+                                </div>
+                            </div>
 
+                            <!-- Start Perset -->
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                <div>
+                                    <img src="../../assets/images/preset.png" class="img-status"
+                                    nbPopover="Preset setting" nbPopoverTrigger="hint"
+                                    >
+                                    <div>
+                                        <label style="font-size: 14px;"> 25°C </label>
+                                    </div>
+                                </div>
                             </div>
                             <!-- End Perset -->
                         </div>
@@ -241,14 +258,15 @@
                         </div>
                         <!-- End Temperature Control -->
 
-                        <!-- Start Control Fan & Mode -->
+                        <!-- Start Control Fan & Mode & Option-->
                         <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <!-- Start Level Fan -->
                             <div 
                             class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
                                 <div class="d-inline-flex">
-                                    <div *ngFor="let fan of smt.fan[0].data; let j = index">
+                                    <!-- Fan -->
+                                    <div *ngFor="let fan of smt.fan[0].data;">
                                         <div class="col">
                                             <img *ngIf="InputPower === 'ON'"
                                             [style]="fan.type == InputFan? 'width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2.3rem; height:2.3rem;'"
@@ -257,9 +275,27 @@
                                             (click)="selectFan(fan.type)" (click)="$event.stopPropagation()">
 
                                             <img *ngIf="InputPower === 'OFF'"
-                                            [style]="fan.type == InputFan? 'cursor: not-allowed; width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2.3rem; height:2.3rem;'"                                            src="{{data.imgsrc}}" class="status-1"
+                                            [style]="fan.type == InputFan? 'cursor: not-allowed; width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2.3rem; height:2.3rem;'"
+                                            src="{{fan.imgsrc}}" class="status-1"
                                             nbPopover="Fan level {{fan.type}} " nbPopoverTrigger="hint" disabled>
                                         </div>
+                                    </div>
+
+                                    <!-- Swing -->
+                                    <div class="col">
+                                        <img *ngIf="InputPower === 'ON' && InputSwing === 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
+                                        src="../../assets/images/swing.png" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint"
+                                        (click)="changeSwing('OFF')" (click)="$event.stopPropagation()">
+
+                                        <img *ngIf="InputPower === 'ON' && InputSwing === 'OFF'"
+                                        style='width:2rem;height:2rem'
+                                        src="../../assets/images/swing.png" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint"
+                                        (click)="changeSwing('ON')" (click)="$event.stopPropagation()">
+
+                                        <img *ngIf="InputPower === 'OFF'"
+                                        style='cursor: not-allowed; width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);cursor: not-allowed; width:2rem; height:2rem;'
+                                        src="../../assets/images/swing.png" class="status-1" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint" disabled>
                                     </div>
                                 </div>
 
@@ -287,32 +323,9 @@
                                             <img *ngIf="InputPower === 'OFF'"
                                             [style]="mode.type == InputMode? 'cursor: not-allowed; width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2rem; height:2rem; '"
                                             src="{{mode.imgsrc}}" class="status-1" nbPopover="{{mode.type}} Mode" nbPopoverTrigger="hint" disabled>
-
-                                            <!-- Swing -->
-                                            <!-- <img *ngIf="InputSwing === 'ON'"
-                                            [style]="data.type == InputMode? 'width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2rem; height:2rem; '"
-                                            src="{{data.imgsrc}}"
-                                            nbPopover="Swing ON" nbPopoverTrigger="hint"
-                                            (click)="changeSwing('OFF')" (click)="$event.stopPropagation()"> --> 
                                         </div>
                                     </div>
-                                        <!-- Swing -->
-                                        <div class="col" style="padding-left:0.5rem; padding-right: 0.5rem;">
-                                            <img *ngIf="InputPower === 'ON' && InputSwing === 'ON'"
-                                            style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
-                                            src="../../assets/images/swing.png" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint"
-                                            (click)="changeSwing('OFF')" (click)="$event.stopPropagation()">
-
-                                            <img *ngIf="InputPower === 'ON' && InputSwing === 'OFF'"
-                                            style='width:2rem;height:2rem'
-                                            src="../../assets/images/swing.png" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint"
-                                            (click)="changeSwing('ON')" (click)="$event.stopPropagation()">
-
-                                            <img *ngIf="InputPower === 'OFF'"
-                                            style='cursor: not-allowed; width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);cursor: not-allowed; width:2rem; height:2rem;'
-                                            src="../../assets/images/swing.png" class="status-1" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint" disabled>
-                                        </div>
-                                    </div>
+                                </div>
                                     
                                 <!-- Dark Theme -->
                                 <div>
@@ -320,6 +333,13 @@
                                 </div>
                             </div>
                             <!-- End Mode -->
+
+                            <div class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
+                                <!-- Default Theme -->
+                                <div class="d-inline-flex">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12">

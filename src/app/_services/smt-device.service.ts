@@ -42,10 +42,10 @@ export class SmtDeviceService {
         type: 'DRY',
         imgsrc: '../../assets/images/dry.svg'
       },
-    //   {
-    //     type: 'Heat',
-    //     imgsrc: '../../../../assets/images/sun.png'
-    //   }
+      {
+        type: 'HEAT',
+        imgsrc: '../../assets/images/sun.png'
+      }
     ],
   }
     ,
@@ -69,10 +69,10 @@ export class SmtDeviceService {
         type: 'DRY',
         imgsrc: '../../assets/images/dry-w.png'
       },
-    //   {
-    //     type: 'Heat',
-    //     imgsrc: '../../../../assets/images/sun-w.png'
-    //   }
+      {
+        type: 'HEAT',
+        imgsrc: '../../assets/images/sun-w.png'
+      }
     ]
   }
   ]
