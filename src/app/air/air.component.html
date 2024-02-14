@@ -40,20 +40,22 @@
                                     cancelButtonText="NO"  (confirm)="turnOnOff('ON') ">
                                 </swal>
 
-                                <div
-                                >
-                                    <nb-icon *ngIf="InputPower === 'OFF'"
+                                <div *ngIf="InputPower === 'OFF'">
+                                    <nb-icon
                                         style="cursor: pointer;" status="danger" class="icon-power"
                                         icon="power-outline" nbPopover="Power off" nbPopoverTrigger="hint"
                                         [swal]="toggleOn">
                                     </nb-icon>
-                                    <nb-icon *ngIf="InputPower === 'ON'"
+                                    <label style="font-size: 14px; color: rgb(227, 58, 58);">OFF.</label>
+                                </div>
+                                <div *ngIf="InputPower === 'ON'">
+                                    <nb-icon 
                                         style="cursor: pointer;" status="success" class="icon-power"
                                         icon="power-outline" nbPopover="Power on" nbPopoverTrigger="hint"
                                         [swal]="toggleOff">
                                     </nb-icon>
-                                    <label></label>
-                                </div>
+                                    <label style="font-size: 14px; color: rgb(0, 227, 0);">.ON</label>
+                                </div>                                       
                             </div>
                             <!-- End Power ON/OFF -->
 
@@ -190,7 +192,7 @@
                                         type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" 
                                         class="input text-center" style="font-size: 35px; display: flex;"
                                         size="2"  nbPopover="Input Temperature" nbPopoverTrigger="hint"
-                                        placeholder="{{InputTemp}}" nbInput shape="semi-round"
+                                        nbInput placeholder="{{InputTemp}}" nbInput shape="semi-round"
                                         [(ngModel)]="InputTemp" (keyup.enter)="send_temp()" (focusout)="25">
                                         <!-- Power OFF -->
                                         <input *ngIf="InputPower === 'OFF'"
@@ -200,7 +202,12 @@
                                         placeholder="{{InputTemp}}" nbInput shape="semi-round"
                                         [(ngModel)]="InputTemp" disabled>
                                     </div>
-                                </div>
+
+                                    <div *ngIf="InputTemp > 15 && InputTemp < 31; else elseBlock" style="color:rgb(0, 255, 38); margin-left: 10px;"> Temp Correct</div>
+                                        <ng-template #elseBlock > 
+                                            <div style="color:rgb(255, 0, 0);">Temp. Wrong</div>
+                                        </ng-template>
+                                    </div>
 
                                 <!-- Up-Down Temperature -->
                                 <div class="col-xxxl-1 col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
@@ -278,7 +285,7 @@
                             <div 
                             class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
-                                <div class="d-inline-flex">
+                                <div class="d-inline-flex" *ngIf="currentTheme === 'default'">
                                     <!-- Fan -->
                                     <div *ngFor="let fan of smt.fan[0].data;">
                                         <div class="col">
@@ -308,14 +315,45 @@
                                         (click)="changeSwing('ON')" (click)="$event.stopPropagation()">
 
                                         <img *ngIf="InputPower === 'OFF'"
-                                        style='cursor: not-allowed; width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);cursor: not-allowed; width:2rem; height:2rem;'
+                                        style='cursor: not-allowed; width:2rem;height:2rem;'
                                         src="../../assets/images/swing.png" class="status-1" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint" disabled>
                                     </div>
                                 </div>
 
                                 <!-- Dark Theme -->
-                                <div>
+                                <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                    <!-- Fan -->
+                                    <div *ngFor="let fan of smt.fan[1].data;">
+                                        <div class="col">
+                                            <img *ngIf="InputPower === 'ON'"
+                                            [style]="fan.type == InputFan? 'width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2.3rem; height:2.3rem;'"
+                                            src="{{fan.imgsrc}}"
+                                            nbPopover="Fan level {{fan.type}} " nbPopoverTrigger="hint"
+                                            (click)="selectFan(fan.type)" (click)="$event.stopPropagation()">
 
+                                            <img *ngIf="InputPower === 'OFF'"
+                                            [style]="fan.type == InputFan? 'cursor: not-allowed; width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2.3rem; height:2.3rem;'"
+                                            src="{{fan.imgsrc}}" class="status-1"
+                                            nbPopover="Fan level {{fan.type}} " nbPopoverTrigger="hint" disabled>
+                                        </div>
+                                    </div>
+
+                                    <!-- Swing -->
+                                    <div class="col">
+                                        <img *ngIf="InputPower === 'ON' && InputSwing === 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
+                                        src="../../assets/images/air-swing-color.png" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint"
+                                        (click)="changeSwing('OFF')" (click)="$event.stopPropagation()">
+
+                                        <img *ngIf="InputPower === 'ON' && InputSwing === 'OFF'"
+                                        style='width:2rem;height:2rem'
+                                        src="../../assets/images/air-swing-color.png" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint"
+                                        (click)="changeSwing('ON')" (click)="$event.stopPropagation()">
+
+                                        <img *ngIf="InputPower === 'OFF'"
+                                        style='cursor: not-allowed; width:2rem;height:2rem;'
+                                        src="../../assets/images/air-swing-color.png" class="status-1" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint" disabled>
+                                    </div>
                                 </div>
                             </div>
                             <!-- End Level Fan -->
@@ -324,7 +362,7 @@
                             <div 
                             class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
-                                <div class="d-inline-flex">
+                                <div class="d-inline-flex" ngIf="currentTheme === 'default'">
                                     <div *ngFor="let mode of smt.src[0].data; let j = index">
                                         <div class="col" style="padding-left:0.6rem; padding-right: 0.6rem;">
                                             <!-- Mode -->
@@ -342,8 +380,21 @@
                                 </div>
                                     
                                 <!-- Dark Theme -->
-                                <div>
+                                <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                    <div *ngFor="let mode of smt.src[1].data; let j = index">
+                                        <div class="col" style="padding-left:0.6rem; padding-right: 0.6rem;">
+                                            <!-- Mode -->
+                                            <img *ngIf="InputPower === 'ON'"
+                                            [style]="mode.type == InputMode? 'width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2rem; height:2rem; '"
+                                            src="{{mode.imgsrc}}"
+                                            nbPopover="{{mode.type}} Mode" nbPopoverTrigger="hint"
+                                            (click)="changeMode(mode.type)" (click)="$event.stopPropagation()">
 
+                                            <img *ngIf="InputPower === 'OFF'"
+                                            [style]="mode.type == InputMode? 'cursor: not-allowed; width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2rem; height:2rem; '"
+                                            src="{{mode.imgsrc}}" class="status-1" nbPopover="{{mode.type}} Mode" nbPopoverTrigger="hint" disabled>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- End Mode -->
@@ -351,7 +402,7 @@
                             <div 
                             class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
-                                <div class="d-inline-flex">
+                                <div class="d-inline-flex" ngIf="currentTheme === 'default'">
                                     <!-- Sleep Mode -->
                                     <div *ngIf="InputPower === 'ON'" class="col">
                                         <img *ngIf="InputSleep === 'ON'"
@@ -392,12 +443,12 @@
 
                                     <!-- Quiet Mode -->
                                     <div *ngIf="InputPower === 'ON'" class="col">
-                                        <img *ngIf="InputQuiet == 'ON'"
+                                        <img *ngIf="InputQuiet === 'ON'"
                                         style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
                                         src="../../assets/images/air-silence.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
                                         (click)="changeQuiet('OFF')" (click)="$event.stopPropagation()">                                
                                     
-                                        <img *ngIf="InputQuiet == 'OFF'"
+                                        <img *ngIf="InputQuiet === 'OFF'"
                                         style='width:2rem;height:2rem;'
                                         src="../../assets/images/air-silence.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
                                         (click)="changeQuiet('ON')" (click)="$event.stopPropagation()">
@@ -411,40 +462,105 @@
 
                                     <!-- Light Mode -->
                                     <div *ngIf="InputPower === 'ON'" class="col">
-                                        <img *ngIf="InputLight == 'ON'"
+                                        <img *ngIf="InputLight === 'ON'"
                                         style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
                                         src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
                                         (click)="changeLight('OFF')" (click)="$event.stopPropagation()">
                                     
-                                        <img *ngIf="InputLight == 'OFF'"
+                                        <img *ngIf="InputLight === 'OFF'"
                                         style='width:2rem;height:2rem;'
                                         src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
+                                        (click)="changeLight('ON')" (click)="$event.stopPropagation()">
+                                    </div>
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img
+                                        style='width:2rem; height:2rem; cursor: not-allowed;'
+                                        src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div> 
+                                </div>
+
+                                <!-- Dark Theme -->
+                                <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                    <!-- Sleep Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputSleep === 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
+                                        src="../../assets/images/air-sleep-w.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
+                                        (click)="changeSleep('OFF')" (click)="$event.stopPropagation()">
+                        
+                                        <img *ngIf="InputSleep === 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-sleep-w.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
+                                        (click)="changeSleep('ON')" (click)="$event.stopPropagation()">
+                                    </div>
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img 
+                                        style='cursor: not-allowed; width:2rem;height:2rem;'
+                                        src="../../assets/images/air-sleep-w.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div>
+                                       
+                                    <!-- Turbo Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputTurbo === 'ON'"
+                                        style='width:2rem; height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
+                                        src="../../assets/images/air-turbo-w.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
+                                        (click)="changeTurbo('OFF')" (click)="$event.stopPropagation()">
+                            
+                                        <img *ngIf="InputTurbo === 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-turbo-w.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
+                                        (click)="changeTurbo('ON')" (click)="$event.stopPropagation()">
+                                    </div>
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img 
+                                        style='width:2rem; height:2rem; cursor: not-allowed;'
+                                        src="../../assets/images/air-turbo-w.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div>
+
+                                    <!-- Quiet Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputQuiet === 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
+                                        src="../../assets/images/air-silence-w.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
+                                        (click)="changeQuiet('OFF')" (click)="$event.stopPropagation()">                                
+                                    
+                                        <img *ngIf="InputQuiet === 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-silence-w.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
+                                        (click)="changeQuiet('ON')" (click)="$event.stopPropagation()">
+                                    </div>
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img 
+                                        style='width:2rem; height:2rem; cursor: not-allowed;'
+                                        src="../../assets/images/air-silence-w.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div>
+
+                                    <!-- Light Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputLight === 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
+                                        src="../../assets/images/air-light-w.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
+                                        (click)="changeLight('OFF')" (click)="$event.stopPropagation()">
+                                    
+                                        <img *ngIf="InputLight === 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-light-w.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
                                         (click)="changeLight('ON')" (click)="$event.stopPropagation()">
                                     </div> 
                                     <div *ngIf="InputPower === 'OFF'" class="col">
                                         <img 
                                         style='width:2rem; height:2rem; cursor: not-allowed;'
-                                        src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
+                                        src="../../assets/images/air-light-w.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
                                         class="status-1" disabled>
-                                    </div>   
-                                </div>
-
-                                <!-- Dark Theme -->
-                                <div>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <br>
-                        <div *ngIf="InputTemp > 15 && InputTemp < 31; else elseBlock" style="color:rgb(0, 255, 38);"> Temp Correct</div>
-                        <ng-template #elseBlock > 
-                            <div style="color:rgb(255, 0, 0);">
-                                **Temp Wrong
-                            </div>
-                        </ng-template>
-                    </div>   
                 </nb-accordion-item-body>
             </nb-accordion-item>
         </nb-accordion>

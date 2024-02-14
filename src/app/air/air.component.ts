@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
 import { ServerPort } from 'src/server/serverapi';
 import { SmtDeviceService } from '../_services/smt-device.service';
 
@@ -10,10 +10,11 @@ import { SmtDeviceService } from '../_services/smt-device.service';
   styleUrls: ['./air.component.scss']
 })
 export class AirComponent implements OnInit {
-  nameRoom: any;
-  newNameRoom: any;
-  nameAir: any;
   keys: any;
+  nameRoom: any;
+  description: any
+  channel: number | undefined;
+  nameAir: any;
   InputTemp: any;
   InputFan: any;
   InputPower: any;
@@ -23,17 +24,20 @@ export class AirComponent implements OnInit {
   InputTurbo: any;
   InputQuiet: any;
   InputLight: any;
-  dialog: any;
-  channel: number | undefined;
+
   newChannel:any;
-  description: any
+  newNameRoom: any;
   newDescription: any
+  dialog: any;
+
+  currentTheme = '';
   
   constructor(
     private http: HttpClient,
     private dialogService: NbDialogService,
     private toastrService: NbToastrService,
-    public  smt: SmtDeviceService,) {
+    public  smt: SmtDeviceService,
+    private themeService: NbThemeService,) {
     
     // <-- Show Data from Server --> //
     this.http.get(ServerPort.apiUrlNodeAir2 + '/remote')
@@ -62,6 +66,16 @@ export class AirComponent implements OnInit {
 
   ngOnInit(): void {
     // default value
+    this.currentTheme = this.themeService.currentTheme;
+    this.themeService.onThemeChange()
+    // .pipe(
+    //   map(({name}) => name),
+    //   takeUntil(this.destroy$)
+    // ).subscribe((themeName) => this.currentTheme = themeName);
+    // this.observe();
+    // setTimeout(() => {
+    //   this.smt.getAllDeviceStatus();
+    // }, 300);
   }
 
   // <-- Change the dialog --> //
