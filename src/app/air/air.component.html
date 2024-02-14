@@ -1,6 +1,6 @@
 <h3>air works!</h3>
 
-<div class="col-12" style="padding: 0px; margin-bottom: 20px;">
+<div class="col-12" style="padding: 0px; margin-bottom: 20px;" nbSpinnerStatus="danger" nbSpinnerSize="large" nbSpinnerMessage="Please wait. . .">
     <div class="row"> 
     <div
     class="col-xxxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12" style="display: inline-block; margin-bottom: 0.30rem;">
@@ -9,8 +9,7 @@
             <nb-accordion-item
             >
                 <nb-accordion-item-header 
-                style="padding-top: 0; padding-bottom: 0; pointer-events: auto;"
-                class="col-lg-12 col-md-12 col-m-12 col-12">
+                class="col-lg-12 col-md-12 col-m-12 col-12" style="padding-top: 0; padding-bottom: 0; pointer-events: auto;">
                     <div class="row" style="display:inline-flex; width: 100%; padding: 0.1rem 0.5rem 0.1rem 1rem;">
                         <!-- Start Name Room & AIR -->
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0;">
@@ -67,35 +66,25 @@
                             </div>
                             <!-- End System Icon -->
 
-                            <!-- Start Wifi Icon -->
+                            <!-- Start Ethernet Model -->
                             <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img nbPopover="Ethernet is connected." nbPopoverTrigger="hint"
-                                src="../../assets/images/WiFi_icon_green.svg" alt="Ethernet"
-                                class="img-status" style="margin: left 0.1em;">
-                                <div><label></label></div>
-                            </div>
-                            <!-- End Wifi Icon -->
-
-                            <!-- Start Smoke Model -->
-                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
-                                <img nbPopover="Smoke detect is disconnected." nbPopoverTrigger="hint"
-                                src="../../assets/images/smoke-detect-disable.png" alt="Smoke detect"
+                                src="../../assets/images/Ethernet_icon_green-01.svg" alt="Smoke detect"
                                 class="img-status" style="margin: left 0.1em;">
                                 <div>
                                     <label></label>
                                 </div>
                             </div>
-                            <!-- End Smoke Model -->
+                            <!-- End Ethernet Model -->
 
-                            <!-- Temp Air -->
+                            <!-- Start Wifi Icon -->
                             <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
-                                <img src="../../assets/images/air-conditioner-on.png"
-                                nbPopover="Current temperature" nbPopoverTrigger="hint"
-                                class="img-status">
-                                <div>
-                                    <label style="font-size: 14px;">{{InputTemp}}°C</label>
-                                </div>
+                                <img nbPopover="Wifi is connected." nbPopoverTrigger="hint"
+                                src="../../assets/images/WiFi_icon_green.svg" alt="Ethernet"
+                                class="img-status" style="margin: left 0.1em;">
+                                <div><label></label></div>
                             </div>
+                            <!-- End Wifi Icon -->
 
                             <!-- Temp Room -->
                             <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
@@ -117,6 +106,16 @@
                                 </div>
                             </div>
 
+                            <!-- Temp Air -->
+                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                <img src="../../assets/images/Air pressure2-01.svg"
+                                nbPopover="Pressure Room" nbPopoverTrigger="hint"
+                                class="img-status">
+                                <div>
+                                    <label style="font-size: 14px;">???</label>
+                                </div>
+                            </div>
+
                             <!-- Start Perset -->
                             <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <div>
@@ -133,13 +132,14 @@
                     </div>
                 </nb-accordion-item-header>
 
-                <nb-accordion-item-body>
+                <nb-accordion-item-body nbSpinnerStatus="danger" nbSpinnerSize="large" nbSpinnerMessage="Please wait. . .">
                     <div 
                     class="row">
                         <!-- Start Mini Menu -->
                         <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div 
                             class="row" style="float: right; margin-left: 0.6rem; margin-right: 0.2rem;">
+                                <!-- Lock Menu -->
                                 <nb-icon
                                     *ngIf="InputPower === 'ON'"
                                     nbPopover="Click to lock outlet." nbPopoverTrigger="hint"
@@ -155,14 +155,25 @@
                                     (click)="$event.stopPropagation()">
                                 </nb-icon>
 
+                                <!-- Chart Menu -->
                                 <div class="status-1">
                                     <a>
                                         <nb-icon style="cursor: pointer; margin-right: 0.5rem;" icon="activity-outline"
-                                            nbPopover="Click to show this outlet chart." nbPopoverTrigger="hint"
+                                            nbPopover="Click to show the realtime data" nbPopoverTrigger="hint"
                                             nbPopoverPlacement="top">
                                         </nb-icon>
                                     </a>
                                 </div>&nbsp;
+
+                                <!-- Option Menu -->
+                                <div
+                                style="cursor:pointer;" nbPopoverTrigger="click"
+                                nbPopoverPlacement="bottom">
+                                    <nb-icon icon="more-horizontal-outline" nbPopover="Options."
+                                    nbPopoverTrigger="hint" nbPopoverPlacement="top"
+                                    style="cursor: pointer;">
+                                    </nb-icon>
+                                </div>
                             </div>
                         </div>
                         <!-- End Mini Menu -->
@@ -170,13 +181,14 @@
                         <!-- Start Temperature Control -->
                         <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="row">
+                                <!-- Text Temp -->
                                 <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                                     <div 
                                     style="text-align:left; align-items:center; justify-content:left; margin-bottom: 0.3rem;">
                                         <!-- Power ON -->
                                         <input *ngIf="InputPower === 'ON'"
                                         type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" 
-                                        class="input text-center" style="font-size: 35px;"
+                                        class="input text-center" style="font-size: 35px; display: flex;"
                                         size="2"  nbPopover="Input Temperature" nbPopoverTrigger="hint"
                                         placeholder="{{InputTemp}}" nbInput shape="semi-round"
                                         [(ngModel)]="InputTemp" (keyup.enter)="send_temp()" (focusout)="25">
@@ -189,6 +201,8 @@
                                         [(ngModel)]="InputTemp" disabled>
                                     </div>
                                 </div>
+
+                                <!-- Up-Down Temperature -->
                                 <div class="col-xxxl-1 col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
                                     <div 
                                     style="text-align:left; align-items:center; justify-content:left; margin-bottom: 0.3rem;">
@@ -308,7 +322,7 @@
 
                             <!-- Start Mode -->
                             <div 
-                            class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
+                            class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
                                 <div class="d-inline-flex">
                                     <div *ngFor="let mode of smt.src[0].data; let j = index">
