@@ -329,6 +329,7 @@ export class AirComponent implements OnInit {
   }
   // <-- Change the Mode Air --> //
 
+  // <-- Change the Swing Air --> //
   changeSwing(modeSwing: any) {
     let newSwing = modeSwing
 
@@ -353,12 +354,21 @@ export class AirComponent implements OnInit {
       });
     }, 500);
   }
+  // <-- Change the Swing Air --> //
 
   changeSleep(modeSleep: any) {
 
   }
 
   changeTurbo(modeTurbo: any) {
+
+  }
+
+  changeQuiet(modeQuiet: any) {
+
+  }
+
+  changeLight(modeLight: any) {
 
   }
 
