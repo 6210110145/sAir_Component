@@ -355,22 +355,114 @@ export class AirComponent implements OnInit {
     }, 500);
   }
   // <-- Change the Swing Air --> //
-
+  
+  // <-- Change the Sleep Mode --> //
   changeSleep(modeSleep: any) {
+    let newSleep = modeSleep
 
+    this.InputSleep = newSleep
+
+    let sleep = {
+      Sleep: newSleep
+    }
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', sleep)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+
+    setTimeout(() => {
+      this.toastrService.show("Sleep complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 500);
   }
+  // <-- Change the Sleep Mode --> //
 
+  // <-- Change the Turbo Mode --> //
   changeTurbo(modeTurbo: any) {
+    let newTurbo = modeTurbo
 
+    this.InputTurbo = newTurbo
+
+    let turbo = {
+      Turbo: newTurbo
+    }
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', turbo)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+
+    setTimeout(() => {
+      this.toastrService.show("Turbo complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 500);
   }
+  // <-- Change the Turbo Mode --> //
 
+  // <-- Change the Quiet Mode --> //
   changeQuiet(modeQuiet: any) {
+    let newQuiet = modeQuiet
 
+    this.InputQuiet = newQuiet
+
+    let quiet = {
+      Quiet: newQuiet
+    }
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', quiet)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+
+    setTimeout(() => {
+      this.toastrService.show("Quiet complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 500);
   }
+  // <-- Change the Quiet Mode --> //
 
+  // <-- Change the Light Mode --> //
   changeLight(modeLight: any) {
+    let newLight = modeLight
 
+    this.InputLight = newLight
+
+    let light = {
+      Light: newLight
+    }
+
+    this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', light)
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+
+    setTimeout(() => {
+      this.toastrService.show("Light complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 500);
   }
+  // <-- Change the Quiet Mode --> //
 
   changeTemp() {
     let newKey = {
@@ -380,7 +472,6 @@ export class AirComponent implements OnInit {
     }
 
     this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', newKey)
-    // this.http.post('http://192.168.0.151:3001/remote', newKey)
       .subscribe(data => {
         console.log(data)
       }, err => {
@@ -400,5 +491,4 @@ export class AirComponent implements OnInit {
   isNotNullOrWhitespace(str: string): boolean {
     return str?.trim().length > 0 ;
   }
-
 }

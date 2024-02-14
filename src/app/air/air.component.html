@@ -333,70 +333,91 @@
                                 </div>
                             </div>
                             <!-- End Mode -->
-
+                            
                             <div 
-                            class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
+                            class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
                                 <div class="d-inline-flex">
-                                    <!-- Power ON -->
-                                    <div *ngIf="InputPower === 'ON'"
-                                    class="col" style="padding-left:0.6rem; padding-right: 0.6rem;">
-                                        <!-- Sleep Mode -->
-                                        <div *ngIf="InputSleep == 'ON' else elseBlockSleep" >
-                                            <img 
-                                            style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
-                                            src="../../assets/images/air-sleep.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
-                                            (click)="changeSleep('OFF')" (click)="$event.stopPropagation()">
-                                        </div>
-                                        <ng-template #elseBlockSleep >
-                                            <img 
-                                            style='width:2rem;height:2rem;'
-                                            src="../../assets/images/air-sleep.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
-                                            (click)="changeSleep('ON')" (click)="$event.stopPropagation()">
-                                        </ng-template>
+                                    <!-- Sleep Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputSleep === 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
+                                        src="../../assets/images/air-sleep.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
+                                        (click)="changeSleep('OFF')" (click)="$event.stopPropagation()">
+                        
+                                        <img *ngIf="InputSleep === 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-sleep.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
+                                        (click)="changeSleep('ON')" (click)="$event.stopPropagation()">
+                                    </div>
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img 
+                                        style='cursor: not-allowed; width:2rem;height:2rem;'
+                                        src="../../assets/images/air-sleep.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div>
+                                       
+                                    <!-- Turbo Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputTurbo === 'ON'"
+                                        style='width:2rem; height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
+                                        src="../../assets/images/air-turbo.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
+                                        (click)="changeTurbo('OFF')" (click)="$event.stopPropagation()">
+                            
+                                        <img *ngIf="InputTurbo === 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-turbo.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
+                                        (click)="changeTurbo('ON')" (click)="$event.stopPropagation()">
+                                    </div>
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img 
+                                        style='width:2rem; height:2rem; cursor: not-allowed;'
+                                        src="../../assets/images/air-turbo.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div>
 
-                                        <!-- Turbo Mode -->
-                                        <div *ngIf="InputTurbo == 'ON' else elseBlockTurbo">
-                                            <img 
-                                            style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
-                                            src="../../assets/images/air-turbo.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
-                                            (click)="changeTurbo('OFF')" (click)="$event.stopPropagation()">
-                                        </div>
-                                        <ng-template #elseBlockTurbo>
-                                            <img 
-                                            style='width:2rem;height:2rem;'
-                                            src="../../assets/images/air-turbo.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
-                                            (click)="changeTurbo('ON')" (click)="$event.stopPropagation()">
-                                        </ng-template>
+                                    <!-- Quiet Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputQuiet == 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
+                                        src="../../assets/images/air-silence.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
+                                        (click)="changeQuiet('OFF')" (click)="$event.stopPropagation()">                                
+                                    
+                                        <img *ngIf="InputQuiet == 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-silence.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
+                                        (click)="changeQuiet('ON')" (click)="$event.stopPropagation()">
+                                    </div>
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img 
+                                        style='width:2rem; height:2rem; cursor: not-allowed;'
+                                        src="../../assets/images/air-silence.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div>
 
-                                        <!-- Quiet Mode -->
-                                        <div *ngIf="InputQuiet == 'ON' else elseBlockQuiet">
-                                            <img 
-                                            style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
-                                            src="../../assets/images/air-silence.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
-                                            (click)="changeQuiet('OFF')" (click)="$event.stopPropagation()">
-                                        </div>
-                                        <ng-template #elseBlockQuiet>
-                                            <img 
-                                            style='width:2rem;height:2rem;'
-                                            src="../../assets/images/air-silence.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
-                                            (click)="changeQuiet('ON')" (click)="$event.stopPropagation()">
-                                        </ng-template>
+                                    <!-- Light Mode -->
+                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                        <img *ngIf="InputLight == 'ON'"
+                                        style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
+                                        src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
+                                        (click)="changeLight('OFF')" (click)="$event.stopPropagation()">
+                                    
+                                        <img *ngIf="InputLight == 'OFF'"
+                                        style='width:2rem;height:2rem;'
+                                        src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
+                                        (click)="changeLight('ON')" (click)="$event.stopPropagation()">
+                                    </div> 
+                                    <div *ngIf="InputPower === 'OFF'" class="col">
+                                        <img 
+                                        style='width:2rem; height:2rem; cursor: not-allowed;'
+                                        src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
+                                        class="status-1" disabled>
+                                    </div>   
+                                </div>
 
-                                        <!-- Light Mode -->
-                                        <div *ngIf="InputLight == 'ON' else elseBlockLight">
-                                            <img 
-                                            style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
-                                            src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
-                                            (click)="changeLight('OFF')" (click)="$event.stopPropagation()">
-                                        </div>
-                                        <ng-template #elseBlockLight>
-                                            <img 
-                                            style='width:2rem;height:2rem;'
-                                            src="../../assets/images/air-light.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
-                                            (click)="changeLight('ON')" (click)="$event.stopPropagation()">
-                                        </ng-template>
-                                    </div>                                    
+                                <!-- Dark Theme -->
+                                <div>
+
                                 </div>
                             </div>
                         </div>
