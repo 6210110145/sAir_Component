@@ -198,14 +198,22 @@
                             </ng-template>
 
                             <!-- Start Perset -->
-                            <div *ngIf="InputError !== undefined else elseBlockPreset"
-                            class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
-                                <img src="../../assets/images/preset.png" class="img-status"
-                                nbPopover="Preset setting" nbPopoverTrigger="hint"
-                                (click)="edit_toggle(presetRef, 'preset')" (click)="$event.stopPropagation()">
-                                <div>
+                            <div *ngIf="InputError === undefined else elseBlockPreset">
+                                <div *ngIf="InputLock === 'UNLOCK'"
+                                class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img src="../../assets/images/preset.png" class="img-status"
+                                    nbPopover="Preset setting" nbPopoverTrigger="hint"
+                                    (click)="edit_toggle(presetRef, 'preset')" (click)="$event.stopPropagation()">
+                                    <div>
+                                        <label style="font-size: 14px;"> 25°C </label>
+                                    </div>
+                                </div>
+                                <div *ngIf="InputLock === 'LOCK'"
+                                class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img src="../../assets/images/preset.png" class="img-status"
+                                    nbPopover="Preset setting" nbPopoverTrigger="hint"> 
                                     <label style="font-size: 14px;"> 25°C </label>
-                                </div>                              
+                                </div>                       
                             </div>
                             <ng-template #elseBlockPreset>
                                 <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
