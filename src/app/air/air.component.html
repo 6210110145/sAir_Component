@@ -12,13 +12,21 @@
                 class="col-lg-12 col-md-12 col-m-12 col-12" style="padding-top: 0; padding-bottom: 0; pointer-events: auto;">
                     <div class="row" style="display:inline-flex; width: 100%; padding: 0.1rem 0.5rem 0.1rem 1rem;">
                         <!-- Start Name Room & AIR -->
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0;">
-                            <p 
+                        <div *ngIf="InputLock === 'UNLOCK'"
+                        class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0;">
+                            <p
                             style="font-size: 1rem;font-weight: 300; margin-top: 0.5rem; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
                             (click)="$event.stopPropagation()"
                             (dblclick)="edit_toggle(dialog, 'room')">
-                                RooM: {{nameRoom}}    ({{nameAir}} Air)
+                                RooM: {{nameRoom}}    ({{nameAir}} _Air)
                             </p>   
+                        </div>
+                        <div *ngIf="InputLock === 'LOCK'"
+                        class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0;">
+                            <p
+                            style="font-size: 1rem;font-weight: 300; margin-top: 0.5rem; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            RooM: {{nameRoom}}    ({{nameAir}} Air)
+                            </p>
                         </div>
                         <!-- End Name Room & AIR -->
 
@@ -40,7 +48,7 @@
                                     cancelButtonText="NO"  (confirm)="turnOnOff('ON') ">
                                 </swal>
 
-                                <div *ngIf="InputPower === 'OFF' && InputLock === 'UNLOCK'">
+                                <div *ngIf="InputPower === 'OFF' && InputLock === 'UNLOCK' && InputError === undefined">
                                     <nb-icon
                                         style="cursor: pointer;" status="danger" class="icon-power"
                                         icon="power-outline" nbPopover="Power off" nbPopoverTrigger="hint"
@@ -48,7 +56,7 @@
                                     </nb-icon>
                                     <label style="font-size: 14px; color: rgb(255, 61, 113);">OFF.</label>
                                 </div>
-                                <div *ngIf="InputPower === 'ON' && InputLock === 'UNLOCK'">
+                                <div *ngIf="InputPower === 'ON' && InputLock === 'UNLOCK' && InputError === undefined">
                                     <nb-icon 
                                         style="cursor: pointer;" status="success" class="icon-power"
                                         icon="power-outline" nbPopover="Power on" nbPopoverTrigger="hint"
@@ -56,7 +64,7 @@
                                     </nb-icon>
                                     <label style="font-size: 14px; color: rgb(0, 214, 143);">.ON</label>
                                 </div>
-                                <div *ngIf="InputLock === 'LOCK'">
+                                <div *ngIf="InputLock === 'LOCK' && InputError === undefined">
                                     <nb-icon
                                         style="cursor: pointer;" status="danger" class="icon-power"
                                         icon="power-outline" nbPopover="LOCK" nbPopoverTrigger="hint"
@@ -68,32 +76,51 @@
                             <!-- End Power ON/OFF -->
 
                             <!-- Start System Icon -->
-                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                            <div *ngIf="InputError === undefined else elseBlockSystem"
+                            class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img nbPopover="System is working." nbPopoverTrigger="hint"
                                 src="../../assets/images/System_icon_green-01.svg" alt="System"
                                 class="img-status">
-                                <div><label></label></div>
                             </div>
+                            <ng-template #elseBlockSystem>
+                                <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img nbPopover="System is not working." nbPopoverTrigger="hint"
+                                    src="../../assets/images/System_icon_gray-01.svg" alt="System"
+                                    class="img-status">                           
+                                </div>
+                            </ng-template>
                             <!-- End System Icon -->
 
                             <!-- Start Ethernet Model -->
-                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                            <div *ngIf="InputError === undefined else elseBlockEther"
+                            class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img nbPopover="Ethernet is connected." nbPopoverTrigger="hint"
-                                src="../../assets/images/Ethernet_icon_green-01.svg" alt="Smoke detect"
+                                src="../../assets/images/Ethernet_icon_green-01.svg"
                                 class="img-status" style="margin: left 0.1em;">
-                                <div>
-                                    <label></label>
-                                </div>
                             </div>
+                            <ng-template #elseBlockEther>
+                                <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img nbPopover="Ethernet is not connected." nbPopoverTrigger="hint"
+                                    src="../../assets/images/Ethernet_icon_gray-01.svg"
+                                    class="img-status" style="margin: left 0.1em;">
+                                </div>
+                            </ng-template>
                             <!-- End Ethernet Model -->
 
                             <!-- Start Wifi Icon -->
-                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                            <div *ngIf="InputError === undefined else elseBlockWifi"
+                            class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img nbPopover="Wifi is connected." nbPopoverTrigger="hint"
                                 src="../../assets/images/WiFi_icon_green.svg" alt="Ethernet"
                                 class="img-status" style="margin: left 0.1em;">
-                                <div><label></label></div>
                             </div>
+                            <ng-template #elseBlockWifi>
+                                <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img nbPopover="Wifi is not connected." nbPopoverTrigger="hint"
+                                    src="../../assets/images/WiFi_icon_gray-01.svg"
+                                    class="img-status" style="margin: left 0.1em;">
+                                </div>
+                            </ng-template>
                             <!-- End Wifi Icon -->
 
                             <!-- Temp Room -->
@@ -257,7 +284,8 @@
                                         <tbody role="rowgroup">
                                             <tr role="row" class="o-top">
                                                 <td role="cell">
-                                                    <div style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <div *ngIf="InputLock === 'UNLOCK'"
+                                                    style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                         <strong
                                                         (click)="$event.stopPropagation()"
                                                         (dblclick)="edit_toggle(channelRef, 'channel')"
@@ -265,17 +293,26 @@
                                                             Channel {{channel}}
                                                         </strong>
                                                     </div>
+                                                    <div *ngIf="InputLock === 'LOCK'"
+                                                    style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <strong style="cursor: pointer;"> Channel {{channel}} </strong>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr role="row" class="o-top">
                                                 <td role="cell">
-                                                    <div style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <div *ngIf="InputLock === 'UNLOCK'"
+                                                    style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                         <p
                                                         (click)="$event.stopPropagation()"
                                                         (dblclick)="edit_toggle(descriptionRef, 'description')"
                                                         style="opacity: 0.6; cursor: pointer;">
                                                             {{description}}
                                                         </p>
+                                                    </div>
+                                                    <div *ngIf="InputLock === 'LOCK'"
+                                                    style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p style="opacity: 0.6; cursor: pointer;"> {{description}} </p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -631,7 +668,7 @@
 <ng-template #minimenu>
     <nb-card class="popover-card">
         <nb-card-body>
-            <nb-list>
+            <nb-list *ngIf="InputLock === 'UNLOCK'">
                 <nb-list-item style="font-size: 12px; cursor: pointer;"
                 (click)="edit_toggle(dialog,'room')">
                 Room Name
@@ -646,10 +683,16 @@
                 (click)="edit_toggle(descriptionRef, 'description')">
                 Description
                 </nb-list-item>
+            </nb-list>
+            <nb-list *ngIf="InputLock === 'LOCK'">
+                <nb-list-item style="font-size: 12px; cursor: pointer;">
+                Room Name </nb-list-item>
 
-                <!-- <nb-list-item style="font-size: 12px; cursor: pointer;"
-                (click)="edit_toggle(outlet_color,index,'color')">Color
-                </nb-list-item> -->
+                <nb-list-item style="font-size: 12px; cursor: pointer;">
+                Channel</nb-list-item>
+
+                <nb-list-item style="font-size: 12px; cursor: pointer;">
+                Description</nb-list-item>
             </nb-list>
         </nb-card-body>
     </nb-card>

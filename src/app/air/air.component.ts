@@ -24,6 +24,7 @@ export class AirComponent implements OnInit {
   InputTurbo: any;
   InputQuiet: any;
   InputLight: any;
+  InputError: any;
 
   newChannel:any;
   newNameRoom: any;
@@ -60,6 +61,8 @@ export class AirComponent implements OnInit {
 
         console.log(data.keys)
       }, err => {
+        this.InputError = err
+        this.InputPower = "OFF"
         console.log(err)
       })
     // <-- Show Data from Server --> //
@@ -94,6 +97,7 @@ export class AirComponent implements OnInit {
     }
   }
 
+  // <-- LOCK && Unlock Remote --> //
   changeLock(modeLock: any) {
     /* 0 ==> Lock
        1 ==> UNLOCK*/
@@ -164,11 +168,19 @@ export class AirComponent implements OnInit {
     this.InputPower = newPower
 
     this.http.post(ServerPort.apiUrlNodeAir2 + '/remote', power)
-      .subscribe(data => {
-        console.log(data)
-      }, err => {
-        console.log(err)
-      })
+    .subscribe(data => {
+      console.log(data)
+    }, err => {
+      console.log(err)
+    })
+
+    setTimeout(() => {
+      this.toastrService.show("complete", "Remote Successfully", 
+      {
+        status: "success",
+        duration: 3000
+      });
+    }, 300);
   }
   // <-- Change the Power ON/OFF --> //
 
