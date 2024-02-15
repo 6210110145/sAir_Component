@@ -19,7 +19,8 @@ import {
   NbToastrModule,
   NbSpinnerModule,
   NbListModule,
-  NbSelectModule} from '@nebular/theme';
+  NbSelectModule,
+  NbToggleModule} from '@nebular/theme';
 import { AirComponent } from './air/air.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -55,6 +56,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     NbIconModule,
     NbPopoverModule,
     NbSelectModule,
+    NbToggleModule,
     UiSwitchModule,
     HttpClientModule
   ],

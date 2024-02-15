@@ -742,6 +742,53 @@
     </nb-card>
 </ng-template>
 
+<ng-template #minimenu>
+    <nb-card class="popover-card">
+        <nb-card-body>
+            <div *ngIf="InputError === undefined else elseBlockErrMini">
+                <nb-list *ngIf="InputLock === 'UNLOCK'">
+                    <nb-list-item style="font-size: 12px; cursor: pointer;"
+                    (click)="edit_toggle(dialog,'room')">
+                    Room Name
+                    </nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;"
+                    (click)="edit_toggle(channelRef, 'channel')">
+                    Channel
+                    </nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;"
+                    (click)="edit_toggle(descriptionRef, 'description')">
+                    Description
+                    </nb-list-item>
+                </nb-list>
+                <nb-list *ngIf="InputLock === 'LOCK'">
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Room Name </nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Channel</nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Description</nb-list-item>
+                </nb-list>
+            </div>
+            <ng-template #elseBlockErrMini>
+                <nb-list>
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Room Name </nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Channel</nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Description</nb-list-item>
+                </nb-list>
+            </ng-template>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
+
 <ng-template #presetRef let-data let-ref="dialogRef">
     <nb-card>
         <nb-card-header>
@@ -750,8 +797,9 @@
                     {{data}}
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 d-flex justify-content-end">
-                    <ui-switch color="#3366ff" size="large" [(ngModel)]="pre_status" defaultBgColor="grey" size="small"
-                    nbPopover="Click to on preset" nbPopoverTrigger="hint" ></ui-switch>
+                    <!-- <ui-switch color="#3366ff" size="large" [(ngModel)]="pre_status" defaultBgColor="grey" size="small"
+                        nbPopover="Click to on preset" nbPopoverTrigger="hint" ></ui-switch> -->
+                    <nb-toggle nbPopover="Click to on preset" nbPopoverTrigger="hint" status="basic"></nb-toggle>
                 </div>
             </div>
         </nb-card-header>
@@ -840,52 +888,11 @@
                 </div>
             </div>
         </nb-card-body>
-    </nb-card>
-</ng-template>
-
-<ng-template #minimenu>
-    <nb-card class="popover-card">
-        <nb-card-body>
-            <div *ngIf="InputError === undefined else elseBlockErrMini">
-                <nb-list *ngIf="InputLock === 'UNLOCK'">
-                    <nb-list-item style="font-size: 12px; cursor: pointer;"
-                    (click)="edit_toggle(dialog,'room')">
-                    Room Name
-                    </nb-list-item>
-
-                    <nb-list-item style="font-size: 12px; cursor: pointer;"
-                    (click)="edit_toggle(channelRef, 'channel')">
-                    Channel
-                    </nb-list-item>
-
-                    <nb-list-item style="font-size: 12px; cursor: pointer;"
-                    (click)="edit_toggle(descriptionRef, 'description')">
-                    Description
-                    </nb-list-item>
-                </nb-list>
-                <nb-list *ngIf="InputLock === 'LOCK'">
-                    <nb-list-item style="font-size: 12px; cursor: pointer;">
-                    Room Name </nb-list-item>
-
-                    <nb-list-item style="font-size: 12px; cursor: pointer;">
-                    Channel</nb-list-item>
-
-                    <nb-list-item style="font-size: 12px; cursor: pointer;">
-                    Description</nb-list-item>
-                </nb-list>
-            </div>
-            <ng-template #elseBlockErrMini>
-                <nb-list>
-                    <nb-list-item style="font-size: 12px; cursor: pointer;">
-                    Room Name </nb-list-item>
-
-                    <nb-list-item style="font-size: 12px; cursor: pointer;">
-                    Channel</nb-list-item>
-
-                    <nb-list-item style="font-size: 12px; cursor: pointer;">
-                    Description</nb-list-item>
-                </nb-list>
-            </ng-template>
-        </nb-card-body>
+        <nb-card-footer class="padding-template">
+            <button class="confirm-button" nbButton size="medium" status="success"
+            (click)="ref.close()"> Confirm </button>
+            <button class="close-button" nbButton size="medium" status="danger"
+            (click)="ref.close()"> Cancel </button>
+        </nb-card-footer>
     </nb-card>
 </ng-template>
