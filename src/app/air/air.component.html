@@ -336,19 +336,25 @@
                                         <tbody role="rowgroup">
                                             <tr role="row" class="o-top">
                                                 <td role="cell">
-                                                    <div *ngIf="InputLock === 'UNLOCK'"
+                                                    <div *ngIf="InputError !== undefined else elseBlockErrChannel"
                                                     style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <strong
-                                                        (click)="$event.stopPropagation()"
-                                                        (dblclick)="edit_toggle(channelRef, 'channel')"
-                                                        style="cursor: pointer;">
-                                                            Channel {{channel}}
-                                                        </strong>
+                                                        <strong style="cursor: pointer;"> No Channel </strong>
                                                     </div>
-                                                    <div *ngIf="InputLock === 'LOCK'"
-                                                    style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <strong style="cursor: pointer;"> Channel {{channel}} </strong>
-                                                    </div>
+                                                    <ng-template #elseBlockErrChannel>
+                                                        <div *ngIf="InputLock === 'UNLOCK'"
+                                                        style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                            <strong
+                                                            (click)="$event.stopPropagation()"
+                                                            (dblclick)="edit_toggle(channelRef, 'channel')"
+                                                            style="cursor: pointer;">
+                                                                Channel {{channel}}
+                                                            </strong>
+                                                        </div>
+                                                        <div *ngIf="InputLock === 'LOCK'"
+                                                        style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                            <strong style="cursor: pointer;"> Channel {{channel}} </strong>
+                                                        </div>
+                                                    </ng-template>                                                    
                                                 </td>
                                             </tr>
                                             <tr role="row" class="o-top">
@@ -720,32 +726,46 @@
 <ng-template #minimenu>
     <nb-card class="popover-card">
         <nb-card-body>
-            <nb-list *ngIf="InputLock === 'UNLOCK'">
-                <nb-list-item style="font-size: 12px; cursor: pointer;"
-                (click)="edit_toggle(dialog,'room')">
-                Room Name
-                </nb-list-item>
+            <div *ngIf="InputError === undefined else elseBlockErrMini">
+                <nb-list *ngIf="InputLock === 'UNLOCK'">
+                    <nb-list-item style="font-size: 12px; cursor: pointer;"
+                    (click)="edit_toggle(dialog,'room')">
+                    Room Name
+                    </nb-list-item>
 
-                <nb-list-item style="font-size: 12px; cursor: pointer;"
-                (click)="edit_toggle(channelRef, 'channel')">
-                Channel
-                </nb-list-item>
+                    <nb-list-item style="font-size: 12px; cursor: pointer;"
+                    (click)="edit_toggle(channelRef, 'channel')">
+                    Channel
+                    </nb-list-item>
 
-                <nb-list-item style="font-size: 12px; cursor: pointer;"
-                (click)="edit_toggle(descriptionRef, 'description')">
-                Description
-                </nb-list-item>
-            </nb-list>
-            <nb-list *ngIf="InputLock === 'LOCK'">
-                <nb-list-item style="font-size: 12px; cursor: pointer;">
-                Room Name </nb-list-item>
+                    <nb-list-item style="font-size: 12px; cursor: pointer;"
+                    (click)="edit_toggle(descriptionRef, 'description')">
+                    Description
+                    </nb-list-item>
+                </nb-list>
+                <nb-list *ngIf="InputLock === 'LOCK'">
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Room Name </nb-list-item>
 
-                <nb-list-item style="font-size: 12px; cursor: pointer;">
-                Channel</nb-list-item>
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Channel</nb-list-item>
 
-                <nb-list-item style="font-size: 12px; cursor: pointer;">
-                Description</nb-list-item>
-            </nb-list>
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Description</nb-list-item>
+                </nb-list>
+            </div>
+            <ng-template #elseBlockErrMini>
+                <nb-list>
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Room Name </nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Channel</nb-list-item>
+
+                    <nb-list-item style="font-size: 12px; cursor: pointer;">
+                    Description</nb-list-item>
+                </nb-list>
+            </ng-template>
         </nb-card-body>
     </nb-card>
 </ng-template>
