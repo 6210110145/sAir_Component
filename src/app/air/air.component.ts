@@ -61,7 +61,7 @@ export class AirComponent implements OnInit {
 
         console.log(data.keys)
       }, err => {
-        this.InputError = err
+        this.InputError = err   // InputError != undefined
         this.InputPower = "OFF"
         console.log(err)
       })
@@ -212,18 +212,18 @@ export class AirComponent implements OnInit {
         }, 300);
       }else if(parseInt(newTemp) < 16) {
         setTimeout(() => {
-          this.toastrService.show("Temperatute must be > 15 °C", "Remote Fail", 
+          this.toastrService.show("Temperatute must be >= 16 °C", "Remote Fail", 
           {
             status: "warning",
-            duration: 3000
+            duration: 5000
           });
         }, 300);
       }else if(parseInt(newTemp) > 30) {
         setTimeout(() => {
-          this.toastrService.show("Temperatute must be < 31 °C", "Remote Fail", 
+          this.toastrService.show("Temperatute must be <= 30 °C", "Remote Fail", 
           {
             status: "warning",
-            duration: 3000
+            duration: 5000
           });
         }, 300);
       }
