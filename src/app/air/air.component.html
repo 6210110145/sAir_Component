@@ -11,7 +11,8 @@
                 <nb-accordion-item-header 
                 class="col-lg-12 col-md-12 col-m-12 col-12" style="padding-top: 0; padding-bottom: 0; pointer-events: auto;">
                     <div class="row" style="display:inline-flex; width: 100%; padding: 0.1rem 0.5rem 0.1rem 1rem;">
-                        <!-- Start Name Room & AIR -->
+                    <!-- Start Name Room & AIR -->
+                        <!-- Name Room & AIR Error -->
                         <div *ngIf="InputError !== undefined else elseBlockErrName"
                         class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0;">
                             <p
@@ -19,6 +20,7 @@
                             RooM: .... (... Air)
                             </p>
                         </div>
+                        <!-- Name Room & AIR Correct -->
                         <ng-template #elseBlockErrName>
                             <div *ngIf="InputLock === 'UNLOCK'"
                             class="col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 0;">
@@ -37,12 +39,11 @@
                                 </p>
                             </div>
                         </ng-template>
-                        
-                        <!-- End Name Room & AIR -->
+                    <!-- End Name Room & AIR -->
 
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
                         style="justify-content: center; padding-left: 0px; margin-bottom: 0.2rem; display:inline-flex;">
-                            <!-- Start Power ON/OFF -->
+                        <!-- Start Power ON/OFF -->
                             <div 
                             class="col-1" style="text-align:center; align-items:center; margin-right: 5%;">
                                 <swal #toggleOff
@@ -82,6 +83,7 @@
                                     </nb-icon>
                                     <label style="font-size: 12px; color: rgb(255, 61, 113);">LOCK</label>
                                 </div>
+                                <!-- Power ON/OFF Error -->
                                 <div *ngIf="InputError !== undefined">
                                     <nb-icon
                                         icon="power-outline" status="basic"
@@ -196,16 +198,21 @@
                             </ng-template>
 
                             <!-- Start Perset -->
-                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                            <div *ngIf="InputError !== undefined else elseBlockPreset"
+                            class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                <img src="../../assets/images/preset.png" class="img-status"
+                                nbPopover="Preset setting" nbPopoverTrigger="hint"
+                                (click)="edit_toggle(presetRef, 'preset')" (click)="$event.stopPropagation()">
                                 <div>
-                                    <img src="../../assets/images/preset.png" class="img-status"
-                                    nbPopover="Preset setting" nbPopoverTrigger="hint"
-                                    >
-                                    <div>
-                                        <label style="font-size: 14px;"> 25°C </label>
-                                    </div>
-                                </div>
+                                    <label style="font-size: 14px;"> 25°C </label>
+                                </div>                              
                             </div>
+                            <ng-template #elseBlockPreset>
+                                <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img src="../../assets/images/preset.png" class="img-status"
+                                    nbPopover="Preset setting" nbPopoverTrigger="hint"> 
+                                </div>
+                            </ng-template>
                             <!-- End Perset -->
                         </div>
                     </div>
@@ -234,7 +241,7 @@
                                     (click)="changeLock(1)" (click)="$event.stopPropagation()">
                                 </nb-icon>
 
-                                <!-- Chart Menu -->
+                                <!-- Route to Chart Menu -->
                                 <div class="status-1">
                                     <a>
                                         <nb-icon style="cursor: pointer; margin-right: 0.5rem;" icon="activity-outline"
@@ -260,7 +267,7 @@
                         <!-- Start Temperature Control -->
                         <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="row">
-                                <!-- Text Temp -->
+                                <!-- Input Temp -->
                                 <div class="col-xxxl-4 col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                                     <div 
                                     style="text-align:left; align-items:center; justify-content:left; margin-bottom: 0.3rem;">
@@ -280,6 +287,7 @@
                                         [(ngModel)]="InputTemp" disabled>
                                     </div>
 
+                                    <!-- Text Temp -->
                                     <div *ngIf="InputError !== undefined else elseBlockErr" style="color:rgb(172, 172, 172); margin-left: 5px;"> 
                                         Not connected
                                     </div>
@@ -300,6 +308,7 @@
                                 <div class="col-xxxl-1 col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
                                     <div 
                                     style="text-align:left; align-items:center; justify-content:left; margin-bottom: 0.3rem;">
+                                        <!-- UP -->
                                         <div>
                                             <!-- Power ON -->
                                             <nb-icon *ngIf="InputPower === 'ON'"
@@ -313,6 +322,8 @@
                                             style="width: 2rem; cursor: pointer;" nbPopover="increase temperature" nbPopoverTrigger="hint">
                                             </nb-icon>
                                         </div>
+
+                                        <!-- Down -->
                                         <div>
                                             <!-- Power ON -->
                                             <nb-icon *ngIf="InputPower === 'ON'"
@@ -330,16 +341,19 @@
                                 </div>
                                 <!-- End Temperature Control -->
 
-                                <!-- Start Channel -->
+                                <!-- Start Channel & Description -->
                                 <div class="col-xxxl-7 col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">
                                     <table role="table" fullWidth style="margin-left: 1.5rem; margin-bottom: 0.5rem; margin-top: 0.5rem;">
                                         <tbody role="rowgroup">
+                                            <!-- Start Channel -->
                                             <tr role="row" class="o-top">
                                                 <td role="cell">
+                                                    <!-- Channel Error -->
                                                     <div *ngIf="InputError !== undefined else elseBlockErrChannel"
                                                     style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                         <strong style="cursor: pointer;"> No Channel </strong>
                                                     </div>
+                                                    <!-- Channel Correct -->
                                                     <ng-template #elseBlockErrChannel>
                                                         <div *ngIf="InputLock === 'UNLOCK'"
                                                         style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -357,8 +371,11 @@
                                                     </ng-template>                                                    
                                                 </td>
                                             </tr>
+                                            <!-- End Channel -->
+
+                                            <!-- Start Description -->
                                             <tr role="row" class="o-top">
-                                                <td role="cell">
+                                                <td role="cell">                                                   
                                                     <div *ngIf="InputLock === 'UNLOCK'"
                                                     style="font-size: 1rem; width: 10rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                         <p
@@ -374,17 +391,18 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <!-- End Description -->
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- End Channel -->
+                                <!-- End Channel & Description -->
                             </div>
                         </div>
                         <!-- End Temperature Control -->
 
-                        <!-- Start Control Fan & Mode & Option-->
+                        <!-- Start Control Fan & Mode & Options -->
                         <div class="col-xxxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <!-- Start Level Fan -->
+                            <!-- Start Fan Control -->
                             <div 
                             class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
@@ -396,13 +414,13 @@
                                             <img *ngIf="InputPower === 'ON'"
                                             [style]="fan.type == InputFan? 'width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2.3rem; height:2.3rem;'"
                                             src="{{fan.imgsrc}}"
-                                            nbPopover="Fan level {{fan.type}} " nbPopoverTrigger="hint"
+                                            nbPopover="Fan level {{fan.text}} " nbPopoverTrigger="hint"
                                             (click)="selectFan(fan.type)" (click)="$event.stopPropagation()">
 
                                             <img *ngIf="InputPower === 'OFF'"
                                             [style]="fan.type == InputFan? 'cursor: not-allowed; width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'cursor: not-allowed; width:2.3rem; height:2.3rem;'"
                                             src="{{fan.imgsrc}}" class="status-1"
-                                            nbPopover="Fan level {{fan.type}} " nbPopoverTrigger="hint" disabled>
+                                            nbPopover="Fan level {{fan.text}} " nbPopoverTrigger="hint" disabled>
                                         </div>
                                     </div>
 
@@ -460,17 +478,16 @@
                                     </div>
                                 </div> -->
                             </div>
-                            <!-- End Level Fan -->
+                            <!-- End Fan Control -->
 
-                            <!-- Start Mode -->
-                            <div 
+                            <!-- Start Mode Control -->
+                            <div
                             class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
                                 <div class="d-inline-flex">
                                 <!-- ngIf="currentTheme === 'default'" -->
                                     <div *ngFor="let mode of smt.src[0].data; let j = index">
                                         <div class="col" style="padding-left:0.6rem; padding-right: 0.6rem;">
-                                            <!-- Mode -->
                                             <img *ngIf="InputPower === 'ON'"
                                             [style]="mode.type == InputMode? 'width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2rem; height:2rem; '"
                                             src="{{mode.imgsrc}}"
@@ -502,8 +519,9 @@
                                     </div>
                                 </div> -->
                             </div>
-                            <!-- End Mode -->
+                            <!-- End Mode Control -->
                             
+                            <!-- Start Options Control -->
                             <div 
                             class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
@@ -665,6 +683,7 @@
                                     </div> -->
                                 <!-- </div> -->
                             </div>
+                            <!-- End Options Control -->
                         </div>
                     </div>
                 </nb-accordion-item-body>
@@ -720,6 +739,107 @@
             <button class="close-button" nbButton size="medium" status="danger" style="float:right;"
                 (click)="ref.close()">Cancel</button>
         </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<ng-template #presetRef let-data let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9">
+                    {{data}}
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 d-flex justify-content-end">
+                    <ui-switch color="#3366ff" size="large" [(ngModel)]="pre_status" defaultBgColor="grey" size="small"
+                    nbPopover="Click to on preset" nbPopoverTrigger="hint" ></ui-switch>
+                </div>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row mx-auto" style="margin-bottom: 10px;">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <label>Temp preset</label>&nbsp;
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="row" stryle="margin-top: 2px">
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                            <input nbInput fullWidth fieldSize="small" type="number" placeholder="Temp">
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" >
+                            <label>°C</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto" style="margin-bottom: 10px;">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <label>Fan level</label>&nbsp;
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                      <div class="row">
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                                  <nb-select fullWidth size="small" >
+                                  <!-- *ngIf="currentTheme === 'default'" -->
+                                        <nb-option value="{{smtfan.type}}" selected *ngFor="let smtfan of smt.fan[0].data;" 
+                                        style="background-image: url({{smtfan.imgsrc}}); background-size: contain; background-repeat: no-repeat;">
+                                            <span style="margin-left: 1.5rem; font-size: small;">Fan level {{smtfan.text}}</span>
+                                        </nb-option>
+                                  </nb-select>
+                                  <!-- <nb-select fullWidth size="small" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                        <nb-option value="{{smtfan.type}}" selected *ngFor="let smtfan of smt.fan[1].data;" style="background-image: url({{smtfan.imgsrc}});
+                                        background-size: contain; background-repeat: no-repeat;">
+                                              <span style="margin-left: 1.5rem; font-size: small;">Fan level {{smtfan.type}}</span>
+                                        </nb-option>
+                                  </nb-select> -->
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"></div>
+                      </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto" style="margin-bottom: 10px;">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    <label>Mode</label>&nbsp;
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="row">
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                            <nb-select fullWidth size="small">
+                            <!-- *ngIf="currentTheme === 'default'" -->
+                                <nb-option value="{{smtmode.type}}" selected *ngFor="let smtmode of smt.src[0].data;" 
+                                style="background-image: url({{smtmode.imgsrc}}); background-size: contain; background-repeat: no-repeat;">
+                                    <span style="margin-left: 1.5rem; font-size: small;">{{smtmode.type}} Mode</span>
+                                </nb-option>
+                            </nb-select>
+                            <!-- <nb-select fullWidth size="small" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                <nb-option value="{{smtmode.type}}" selected *ngFor="let smtmode of smt.src[1].data;" style="background-image: url({{smtmode.imgsrc}});
+                                background-size: contain; background-repeat: no-repeat;">
+                                    <span style="margin-left: 1.5rem; font-size: small;">{{smtmode.type}} Mode</span>
+                                </nb-option>
+                            </nb-select> -->
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"></div>
+                      </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto" style="margin-bottom: 10px;">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                      <label>Preset time</label>&nbsp;
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+                    <div class="row">
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                            <input nbInput fullWidth fieldSize="small" type="number" placeholder="Time (min)">
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                            <label>นาที</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
     </nb-card>
 </ng-template>
 

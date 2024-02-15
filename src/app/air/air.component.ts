@@ -31,6 +31,7 @@ export class AirComponent implements OnInit {
   newDescription: any
   dialog: any;
   InputLock: any;
+  pre_status:boolean | undefined;
 
   currentTheme = '';
   
@@ -94,6 +95,9 @@ export class AirComponent implements OnInit {
     }
     if(type == 'description') {
       this.dialogService.open(dialog, { context: 'Edit description of ' + this.description })
+    }
+    if(type == 'preset') {
+      this.dialogService.open(dialog, { context: 'Edit preset of TEST'})
     }
   }
 

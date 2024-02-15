@@ -82,18 +82,22 @@ export class SmtDeviceService {
     data: [
       {
         type: 1,
+        text: "Low",
         imgsrc: '../../assets/images/fan-1.png'
       },
       {
         type: 2,
+        text: "Medium",
         imgsrc: '../../assets/images/fan-2.png'
       },
       {
         type: 3,
+        text: "High",
         imgsrc: '../../assets/images/fan-3.png'
       },
       {
         type: 0,
+        text: "Auto",
         imgsrc: '../../assets/images/fan-auto.png'
       }
     ],
@@ -104,18 +108,22 @@ export class SmtDeviceService {
     data: [
       {
         type: 1,
+        text: "Low",
         imgsrc: '../../assets/images/fan-1w.png'
       },
       {
         type: 2,
+        text: "Medium",
         imgsrc: '../../assets/images/fan-2w.png'
       },
       {
         type: 3,
+        text: "High",
         imgsrc: '../../assets/images/fan-3w.png'
       },
       {
         type: 0,
+        text: "Auto",
         imgsrc: '../../assets/images/fan-autow.png'
       }
     ],

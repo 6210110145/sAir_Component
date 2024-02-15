@@ -104,7 +104,8 @@
               "src/assets/images"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-ui-switch/ui-switch.component.css"
             ],
             "scripts": []
           }
