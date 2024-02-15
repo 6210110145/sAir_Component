@@ -40,22 +40,30 @@
                                     cancelButtonText="NO"  (confirm)="turnOnOff('ON') ">
                                 </swal>
 
-                                <div *ngIf="InputPower === 'OFF'">
+                                <div *ngIf="InputPower === 'OFF' && InputLock === 'UNLOCK'">
                                     <nb-icon
                                         style="cursor: pointer;" status="danger" class="icon-power"
                                         icon="power-outline" nbPopover="Power off" nbPopoverTrigger="hint"
                                         [swal]="toggleOn">
                                     </nb-icon>
-                                    <label style="font-size: 14px; color: rgb(227, 58, 58);">OFF.</label>
+                                    <label style="font-size: 14px; color: rgb(255, 61, 113);">OFF.</label>
                                 </div>
-                                <div *ngIf="InputPower === 'ON'">
+                                <div *ngIf="InputPower === 'ON' && InputLock === 'UNLOCK'">
                                     <nb-icon 
                                         style="cursor: pointer;" status="success" class="icon-power"
                                         icon="power-outline" nbPopover="Power on" nbPopoverTrigger="hint"
                                         [swal]="toggleOff">
                                     </nb-icon>
-                                    <label style="font-size: 14px; color: rgb(0, 227, 0);">.ON</label>
-                                </div>                                       
+                                    <label style="font-size: 14px; color: rgb(0, 214, 143);">.ON</label>
+                                </div>
+                                <div *ngIf="InputLock === 'LOCK'">
+                                    <nb-icon
+                                        style="cursor: pointer;" status="danger" class="icon-power"
+                                        icon="power-outline" nbPopover="LOCK" nbPopoverTrigger="hint"
+                                        >
+                                    </nb-icon>
+                                    <label style="font-size: 12px; color: rgb(255, 61, 113);">LOCK</label>
+                                </div>                                     
                             </div>
                             <!-- End Power ON/OFF -->
 
@@ -114,7 +122,7 @@
                                 nbPopover="Pressure Room" nbPopoverTrigger="hint"
                                 class="img-status">
                                 <div>
-                                    <label style="font-size: 14px;">???</label>
+                                    <label style="font-size: 12px;">??..</label>
                                 </div>
                             </div>
 
@@ -143,18 +151,18 @@
                             class="row" style="float: right; margin-left: 0.6rem; margin-right: 0.2rem;">
                                 <!-- Lock Menu -->
                                 <nb-icon
-                                    *ngIf="InputPower === 'ON'"
+                                    *ngIf="InputLock === 'UNLOCK'"
                                     nbPopover="Click to lock outlet." nbPopoverTrigger="hint"
                                     nbPopoverPlacement="top" icon="lock" status="success"
                                     style="cursor: pointer; margin-right: 0.5rem;"
-                                    (click)="$event.stopPropagation()">
+                                    (click)="changeLock(0)" (click)="$event.stopPropagation()">
                                 </nb-icon>&nbsp;
                                 <nb-icon
-                                    *ngIf="InputPower === 'OFF'"
+                                    *ngIf="InputLock === 'LOCK'"
                                     nbPopover="Click to unlock outlet." nbPopoverTrigger="hint"
                                     nbPopoverPlacement="top" icon="unlock" status="danger"
                                     style="cursor: pointer; margin-right: 0.5rem;"
-                                    (click)="$event.stopPropagation()">
+                                    (click)="changeLock(1)" (click)="$event.stopPropagation()">
                                 </nb-icon>
 
                                 <!-- Chart Menu -->
@@ -168,7 +176,7 @@
                                 </div>&nbsp;
 
                                 <!-- Option Menu -->
-                                <div
+                                <div [nbPopover]="minimenu"
                                 style="cursor:pointer;" nbPopoverTrigger="click"
                                 nbPopoverPlacement="bottom">
                                     <nb-icon icon="more-horizontal-outline" nbPopover="Options."
@@ -285,7 +293,8 @@
                             <div 
                             class="row" style="margin-top: 0.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
-                                <div class="d-inline-flex" *ngIf="currentTheme === 'default'">
+                                <div class="d-inline-flex" >
+                                <!-- *ngIf="currentTheme === 'default'" -->
                                     <!-- Fan -->
                                     <div *ngFor="let fan of smt.fan[0].data;">
                                         <div class="col">
@@ -321,9 +330,9 @@
                                 </div>
 
                                 <!-- Dark Theme -->
-                                <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                <!-- <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'"> -->
                                     <!-- Fan -->
-                                    <div *ngFor="let fan of smt.fan[1].data;">
+                                    <!-- <div *ngFor="let fan of smt.fan[1].data;">
                                         <div class="col">
                                             <img *ngIf="InputPower === 'ON'"
                                             [style]="fan.type == InputFan? 'width:2.3rem; height:2.3rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2.3rem; height:2.3rem;'"
@@ -336,10 +345,10 @@
                                             src="{{fan.imgsrc}}" class="status-1"
                                             nbPopover="Fan level {{fan.type}} " nbPopoverTrigger="hint" disabled>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Swing -->
-                                    <div class="col">
+                                    <!-- <div class="col">
                                         <img *ngIf="InputPower === 'ON' && InputSwing === 'ON'"
                                         style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
                                         src="../../assets/images/air-swing-color.png" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint"
@@ -354,7 +363,7 @@
                                         style='cursor: not-allowed; width:2rem;height:2rem;'
                                         src="../../assets/images/air-swing-color.png" class="status-1" nbPopover="Swing {{InputSwing}}" nbPopoverTrigger="hint" disabled>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- End Level Fan -->
 
@@ -362,7 +371,8 @@
                             <div 
                             class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
-                                <div class="d-inline-flex" ngIf="currentTheme === 'default'">
+                                <div class="d-inline-flex">
+                                <!-- ngIf="currentTheme === 'default'" -->
                                     <div *ngFor="let mode of smt.src[0].data; let j = index">
                                         <div class="col" style="padding-left:0.6rem; padding-right: 0.6rem;">
                                             <!-- Mode -->
@@ -380,11 +390,11 @@
                                 </div>
                                     
                                 <!-- Dark Theme -->
-                                <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                <!-- <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
                                     <div *ngFor="let mode of smt.src[1].data; let j = index">
-                                        <div class="col" style="padding-left:0.6rem; padding-right: 0.6rem;">
+                                        <div class="col" style="padding-left:0.6rem; padding-right: 0.6rem;"> -->
                                             <!-- Mode -->
-                                            <img *ngIf="InputPower === 'ON'"
+                                            <!-- <img *ngIf="InputPower === 'ON'"
                                             [style]="mode.type == InputMode? 'width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);':'width:2rem; height:2rem; '"
                                             src="{{mode.imgsrc}}"
                                             nbPopover="{{mode.type}} Mode" nbPopoverTrigger="hint"
@@ -395,14 +405,15 @@
                                             src="{{mode.imgsrc}}" class="status-1" nbPopover="{{mode.type}} Mode" nbPopoverTrigger="hint" disabled>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- End Mode -->
                             
                             <div 
                             class="row" style="margin-top: 1.5rem; text-align:center; align-items:center; justify-content: center; cursor: pointer;">
                                 <!-- Default Theme -->
-                                <div class="d-inline-flex" ngIf="currentTheme === 'default'">
+                                <div class="d-inline-flex">
+                                <!-- ngIf="currentTheme === 'default'" -->
                                     <!-- Sleep Mode -->
                                     <div *ngIf="InputPower === 'ON'" class="col">
                                         <img *ngIf="InputSleep === 'ON'"
@@ -481,9 +492,9 @@
                                 </div>
 
                                 <!-- Dark Theme -->
-                                <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'">
+                                <!-- <div class="d-inline-flex" *ngIf="currentTheme === 'dark' || currentTheme === 'cosmic'"> -->
                                     <!-- Sleep Mode -->
-                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                    <!-- <div *ngIf="InputPower === 'ON'" class="col">
                                         <img *ngIf="InputSleep === 'ON'"
                                         style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
                                         src="../../assets/images/air-sleep-w.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
@@ -499,10 +510,10 @@
                                         style='cursor: not-allowed; width:2rem;height:2rem;'
                                         src="../../assets/images/air-sleep-w.png" nbPopover="Sleep {{InputSleep}}" nbPopoverTrigger="hint"
                                         class="status-1" disabled>
-                                    </div>
+                                    </div> -->
                                        
                                     <!-- Turbo Mode -->
-                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                    <!-- <div *ngIf="InputPower === 'ON'" class="col">
                                         <img *ngIf="InputTurbo === 'ON'"
                                         style='width:2rem; height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
                                         src="../../assets/images/air-turbo-w.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
@@ -518,10 +529,10 @@
                                         style='width:2rem; height:2rem; cursor: not-allowed;'
                                         src="../../assets/images/air-turbo-w.png" nbPopover="Turbo {{InputTurbo}}" nbPopoverTrigger="hint"
                                         class="status-1" disabled>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Quiet Mode -->
-                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                    <!-- <div *ngIf="InputPower === 'ON'" class="col">
                                         <img *ngIf="InputQuiet === 'ON'"
                                         style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);'
                                         src="../../assets/images/air-silence-w.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
@@ -537,10 +548,10 @@
                                         style='width:2rem; height:2rem; cursor: not-allowed;'
                                         src="../../assets/images/air-silence-w.png" nbPopover="Quiet {{InputQuiet}}" nbPopoverTrigger="hint"
                                         class="status-1" disabled>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Light Mode -->
-                                    <div *ngIf="InputPower === 'ON'" class="col">
+                                    <!-- <div *ngIf="InputPower === 'ON'" class="col">
                                         <img *ngIf="InputLight === 'ON'"
                                         style='width:2rem;height:2rem; filter: invert(33%) sepia(99%) saturate(2977%) hue-rotate(218deg) brightness(100%) contrast(101%);width:2rem; height:2rem;'
                                         src="../../assets/images/air-light-w.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
@@ -556,8 +567,8 @@
                                         style='width:2rem; height:2rem; cursor: not-allowed;'
                                         src="../../assets/images/air-light-w.png" nbPopover="Light {{InputLight}}" nbPopoverTrigger="hint"
                                         class="status-1" disabled>
-                                    </div>
-                                </div>
+                                    </div> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -614,5 +625,32 @@
             <button class="close-button" nbButton size="medium" status="danger" style="float:right;"
                 (click)="ref.close()">Cancel</button>
         </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<ng-template #minimenu>
+    <nb-card class="popover-card">
+        <nb-card-body>
+            <nb-list>
+                <nb-list-item style="font-size: 12px; cursor: pointer;"
+                (click)="edit_toggle(dialog,'room')">
+                Room Name
+                </nb-list-item>
+
+                <nb-list-item style="font-size: 12px; cursor: pointer;"
+                (click)="edit_toggle(channelRef, 'channel')">
+                Channel
+                </nb-list-item>
+
+                <nb-list-item style="font-size: 12px; cursor: pointer;"
+                (click)="edit_toggle(descriptionRef, 'description')">
+                Description
+                </nb-list-item>
+
+                <!-- <nb-list-item style="font-size: 12px; cursor: pointer;"
+                (click)="edit_toggle(outlet_color,index,'color')">Color
+                </nb-list-item> -->
+            </nb-list>
+        </nb-card-body>
     </nb-card>
 </ng-template>

@@ -29,6 +29,7 @@ export class AirComponent implements OnInit {
   newNameRoom: any;
   newDescription: any
   dialog: any;
+  InputLock: any;
 
   currentTheme = '';
   
@@ -66,6 +67,8 @@ export class AirComponent implements OnInit {
 
   ngOnInit(): void {
     // default value
+    this.InputLock = "UNLOCK"
+
     this.currentTheme = this.themeService.currentTheme;
     this.themeService.onThemeChange()
     // .pipe(
@@ -88,6 +91,19 @@ export class AirComponent implements OnInit {
     }
     if(type == 'description') {
       this.dialogService.open(dialog, { context: 'Edit description of ' + this.description })
+    }
+  }
+
+  changeLock(modeLock: any) {
+    /* 0 ==> Lock
+       1 ==> UNLOCK*/
+    
+    if(modeLock === 0) {
+      this.InputLock = "LOCK"
+      this.InputPower = 'OFF'
+    }else if(modeLock === 1){
+      this.InputLock = "UNLOCK"
+      // this.InputPower = 'ON'
     }
   }
 
