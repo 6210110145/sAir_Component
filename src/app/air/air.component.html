@@ -124,17 +124,26 @@
                             <!-- End Wifi Icon -->
 
                             <!-- Temp Room -->
-                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
-                                <img src="../../assets/images/Device temp2-01.svg"
+                            <div *ngIf="InputError === undefined else elseBlockTemp"
+                            class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                <img src="../../assets/images/Device_temp_green-01.svg"
                                 nbPopover="Temp Room" nbPopoverTrigger="hint"
-                                class="img-status">
+                                class="img-status" style="margin: left 0.1em;">
                                 <div>
                                     <label style="font-size: 14px;"> 31°C </label>
                                 </div>
                             </div>
+                            <ng-template #elseBlockTemp>
+                                <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img nbPopover="Sensor is not connected." nbPopoverTrigger="hint"
+                                    src="../../assets/images/Device_temp_gray-01.svg"
+                                    class="img-status" style="margin: left 0.1em;">
+                                </div>
+                            </ng-template>
 
                             <!-- Humid Room -->
-                            <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                            <div *ngIf="InputError === undefined else elseBlockHumid"
+                            class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
                                 <img src="../../assets/images/Humidity4.svg"
                                 nbPopover="Humid Room" nbPopoverTrigger="hint"
                                 class="img-status">
@@ -142,6 +151,13 @@
                                     <label style="font-size: 14px; align-items:center"> 23% </label>
                                 </div>
                             </div>
+                            <ng-template #elseBlockHumid>
+                                <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
+                                    <img src="../../assets/images/Humidity5.svg"
+                                    nbPopover="Sensor is not connected." nbPopoverTrigger="hint"
+                                    class="img-status">
+                                </div>
+                            </ng-template>
 
                             <!-- Temp Air -->
                             <div class="col-1" style="text-align:end; align-items:end; margin-right: 5%;">
