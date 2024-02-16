@@ -45,22 +45,22 @@ export class AirComponent implements OnInit {
     // <-- Show Data from Server --> //
     this.http.get(ServerPort.apiUrlNodeAir2 + '/remote')
       .subscribe((data: any) => {
-        this.keys = data.keys
-        this.nameRoom = data.keys.Room
-        this.channel = data.keys.Channel
-        this.description = data.keys.Description
-        this.nameAir = data.keys.Name
-        this.InputPower = data.keys.Power
-        this.InputTemp = data.keys.Temp
-        this.InputFan = data.keys.Fan
-        this.InputMode = data.keys.Mode
-        this.InputSwing = data.keys.Swing
-        this.InputSleep = data.keys.Sleep
-        this.InputQuiet = data.keys.Quiet
-        this.InputTurbo = data.keys.Turbo
-        this.InputLight = data.keys.Light
+        this.keys = data
+        this.nameRoom = data.Room
+        this.channel = data.Channel
+        this.description = data.Description
+        this.nameAir = data.Name
+        this.InputPower = data.Power
+        this.InputTemp = data.Temp
+        this.InputFan = data.Fan
+        this.InputMode = data.Mode
+        this.InputSwing = data.Swing
+        this.InputSleep = data.Sleep
+        this.InputQuiet = data.Quiet
+        this.InputTurbo = data.Turbo
+        this.InputLight = data.Light
 
-        console.log(data.keys)
+        console.log(data)
       }, err => {
         this.InputError = err   // InputError != undefined
         this.InputPower = "OFF"
