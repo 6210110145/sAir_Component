@@ -1,8 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
-import { ServerPort } from 'src/server/serverapi';
+import { ServerPort } from 'src/server/serverport';
 import { SmtDeviceService } from '../_services/smt-device.service';
+// @ts-ignore
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-air',
@@ -34,6 +36,7 @@ export class AirComponent implements OnInit {
   pre_status:boolean | undefined;
 
   currentTheme = '';
+  socket:any;
   
   constructor(
     private http: HttpClient,
@@ -41,37 +44,44 @@ export class AirComponent implements OnInit {
     private toastrService: NbToastrService,
     public  smt: SmtDeviceService,
     private themeService: NbThemeService,) {
-    
-    // <-- Show Data from Server --> //
-    this.http.get(ServerPort.apiUrlNodeAir2 + '/remote')
-      .subscribe((data: any) => {
-        this.keys = data
-        this.nameRoom = data.Room
-        this.channel = data.Channel
-        this.description = data.Description
-        this.nameAir = data.Name
-        this.InputPower = data.Power
-        this.InputTemp = data.Temp
-        this.InputFan = data.Fan
-        this.InputMode = data.Mode
-        this.InputSwing = data.Swing
-        this.InputSleep = data.Sleep
-        this.InputQuiet = data.Quiet
-        this.InputTurbo = data.Turbo
-        this.InputLight = data.Light
 
-        console.log(data)
-      }, err => {
-        this.InputError = err   // InputError != undefined
-        this.InputPower = "OFF"
-        console.log(err)
-      })
-    // <-- Show Data from Server --> //
+      // Websocket connection
+      this.socket = io(ServerPort.apiUrlNodeAir2);
+      console.log('connect socket')
   }
 
   ngOnInit(): void {
     // default value
     this.InputLock = "UNLOCK"
+
+    // this.socket.emit('first', 'the first connection');
+
+    // socket error
+    this.socket.on('connect_error', () => {
+      this.InputPower = 'OFF'
+      this.InputError = 'error'
+    })
+
+    // <-- Show Data from Server --> //
+    this.socket.on('remote', (data:any) => {
+      this.keys = data
+      this.nameRoom = data.Room
+      this.channel = data.Channel
+      this.description = data.Description
+      this.nameAir = data.Name
+      this.InputPower = data.Power
+      this.InputTemp = data.Temp
+      this.InputFan = data.Fan
+      this.InputMode = data.Mode
+      this.InputSwing = data.Swing
+      this.InputSleep = data.Sleep
+      this.InputQuiet = data.Quiet
+      this.InputTurbo = data.Turbo
+      this.InputLight = data.Light
+
+      console.log(data)
+    })
+    // <-- Show Data from Server --> //
 
     this.currentTheme = this.themeService.currentTheme;
     this.themeService.onThemeChange()
